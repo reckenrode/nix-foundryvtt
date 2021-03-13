@@ -183,7 +183,36 @@ in
           ${cfg.package}/bin/foundryvtt --headless --noupdate --dataPath="${cfg.dataPath}"
         '';
         StateDirectory = "foundryvtt";
-        StateDirectoryMode = "0755";
+        StateDirectoryMode = "0750";
+
+        # Hardening
+        CapabilityBoundingSet = [ "AF_INET" "AF_INET6" ];
+        DeviceAllow = [ "/dev/stdin r" ];
+        DevicePolicy = "strict";
+        IPAddressAllow = "localhost";
+        LockPersonality = true;
+        MemoryDenyWriteExecute = true;
+        NoNewPrivileges = true;
+        PrivateDevices = true;
+        PrivateTmp = true;
+        PrivateUsers = true;
+        ProtectClock = true;
+        ProtectControlGroups = true;
+        ProtectHome = true;
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectSystem = "strict";
+        ReadOnlyPaths = true;
+        RemoveIPC = true;
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        SystemCallArchitectures = "native";
+        SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
+        UMask = "0077";
       };
 
       preStart = ''
