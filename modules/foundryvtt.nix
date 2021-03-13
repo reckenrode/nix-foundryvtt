@@ -177,6 +177,7 @@ in
 
       serviceConfig = {
         User = "foundryvtt";
+        Group = "foundryvtt";
         Restart = "on-failure";
         ExecStart = ''
           ${cfg.package}/bin/foundryvtt --headless --noupdate --dataPath="${cfg.dataPath}"
