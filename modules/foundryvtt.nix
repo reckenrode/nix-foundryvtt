@@ -4,7 +4,10 @@ let
   cfg = config.services.foundryvtt;
   dataDir = "/var/lib/foundryvtt";
   configFile = pkgs.writeText "options.json"
-    (builtins.toJSON (builtins.removeAttrs cfg [ "enable" "package" ]));
+    (builtins.toJSON (lib.trivial.pipe cfg [
+      (lst: builtins.removeAttrs lst [ "enable" "package" ])
+      (lib.filterAttrs (attr: value: value != null))
+    ]));
   foundryvtt = flakePackages.${pkgs.system}.foundryvtt;
 in
 {
