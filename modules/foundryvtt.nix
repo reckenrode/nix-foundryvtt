@@ -26,13 +26,13 @@ in
         '';
       };
 
-      dataPath = mkOption {
-        type = types.path;
-        default = dataDir;
-        description = ''
-          The path where Foundry keeps its config, data, and logs.
-        '';
-      };
+      # dataPath = mkOption {
+      #   type = types.path;
+      #   default = dataDir;
+      #   description = ''
+      #     The path where Foundry keeps its config, data, and logs.
+      #   '';
+      # };
 
       hostname = mkOption {
         type = types.str;
@@ -182,7 +182,7 @@ in
         Group = "foundryvtt";
         Restart = "on-failure";
         ExecStart = ''
-          ${cfg.package}/bin/foundryvtt --headless --noupdate --dataPath="${cfg.dataPath}"
+          ${cfg.package}/bin/foundryvtt --headless --noupdate --dataPath="${dataDir}"
         '';
         StateDirectory = "foundryvtt";
         StateDirectoryMode = "0750";
