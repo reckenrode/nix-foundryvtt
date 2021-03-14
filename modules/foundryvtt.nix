@@ -218,8 +218,8 @@ in
       preStart = ''
         installedConfigFile="${dataDir}/Config/options.json"
         mkdir -p ${dataDir}/Config
-        rm "$installedConfigFile" && cp ${configFile} "$installedConfigFile"
-        chmod 0444 "$installedConfigFile"
+        rm -f "$installedConfigFile" && cp ${configFile} "$installedConfigFile"
+        chmod 0400 "$installedConfigFile"
       '';
     };
   };
