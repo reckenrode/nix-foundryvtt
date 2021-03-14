@@ -120,34 +120,36 @@ in
         '';
       };
 
-      turnConfigs = mkOption {
-        default = null;
-        description = "Custom relay server configurations";
-        type = nullOr (listOf (submodule {
-          options = {
-            urls = mkOption {
-              type = listOf str;
-              default = [];
-              description = "Addresses of the TURN servers";
-            };
+      # Disabled because Foundry logs the contents of options.json, which will leak the server
+      # credentials to the system log.
+      # turnConfigs = mkOption {
+      #   default = null;
+      #   description = "Custom relay server configurations";
+      #   type = nullOr (listOf (submodule {
+      #     options = {
+      #       urls = mkOption {
+      #         type = listOf str;
+      #         default = [];
+      #         description = "Addresses of the TURN servers";
+      #       };
 
-            username = mkOption {
-              type = str;
-              default = "";
-              description = "The username to use for the TURN server";
-            };
+      #       username = mkOption {
+      #         type = str;
+      #         default = "";
+      #         description = "The username to use for the TURN server";
+      #       };
 
-            credential = mkOption {
-              type = str;
-              default = "";
-              description = ''
-                The password to use for the TURN server. NOTE: Do not specify the credential
-                directly here, or it will end up in the Nix store.
-              '';
-            };
-          };
-        }));
-      };
+      #       credential = mkOption {
+      #         type = str;
+      #         default = "";
+      #         description = ''
+      #           The password to use for the TURN server. NOTE: Do not specify the credential
+      #           directly here, or it will end up in the Nix store.
+      #         '';
+      #       };
+      #     };
+      #   }));
+      # };
 
       package = mkOption {
         type = package;
