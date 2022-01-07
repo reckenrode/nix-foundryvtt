@@ -1,9 +1,11 @@
 { lib
 , stdenv
 , coreutils
+, findutils
 , makeWrapper
 , nodejs
 , openssl
+, pngout ? null
 , requireFile
 , unzip
 , foundryvtt-deps
@@ -27,8 +29,10 @@ stdenv.mkDerivation rec {
     url = "https://foundryvtt.com";
   };
 
+  outputs = [ "out" "gzip" "zstd" "brotli" ];
+
   buildInputs = [ openssl nodejs ];
-  nativeBuildInputs = [ coreutils makeWrapper unzip ];
+  nativeBuildInputs = [ coreutils makeWrapper unzip gzip zstd brotli ];
 
   unpackPhase = "unzip $src";
 
@@ -60,6 +64,24 @@ stdenv.mkDerivation rec {
       echo "${nodejs}/bin/node $out/main.js \"\$@\"" >> $out/libexec/${pname}
       chmod a+x $out/libexec/${pname}
       makeWrapper $out/libexec/${pname} $out/bin/${pname} --prefix PATH : "${openssl}/bin"
+
+      # Run PNG images through `pngout` if it’s available.
+      ${if pngout != null then ''
+        find $out/public -name '*.png' -exec ${pngout}/bin/pngout {} -k1 -y \;
+      '' else ""}
+      
+      # Precompress assets for use with e.g., Caddy
+      for method in gzip zstd brotli; do
+        mkdir -p ''${!method}
+        cp -R resources/app/public/* ''${!method}
+        find ''${!method} -name '*.png' -delete -or -name '*.jpg' -delete \
+          -or -name '*.webp' -delete -or -name '*.wav' -delete -or -name '*.ico' -delete \
+          -or -name '*.icns' -delete
+      done
+
+      find $gzip -type f -exec gzip -9 {} +
+      find $zstd -type f -exec zstd -19 --rm {} +
+      find $brotli -type f -exec brotli -9 --rm {} +
     '';
 
   meta = {
