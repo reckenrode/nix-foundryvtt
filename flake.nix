@@ -6,17 +6,28 @@
   '';
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-20.09";
-    flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-21.11";
+    utils.url = "github:gytis-ivaskevicius/flake-utils-plus/v1.3.1";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let pkgs = nixpkgs.legacyPackages.${system}; in rec {
-        packages.foundryvtt = pkgs.callPackage (import ./pkgs/foundryvtt.nix) {};
-        defaultPackage = packages.foundryvtt;
-      }) // {
-        overlay = final: prev: { foundryvtt = self.packages.${final.system}.foundryvtt; };
-        nixosModules.foundryvtt = import ./modules/foundryvtt.nix self.packages;
-      };
+  outputs = inputs@{ self, utils, nixpkgs, ... }:
+    let
+      packages = import ./pkgs;
+    in
+    utils.lib.mkFlake rec {
+      inherit self inputs;
+
+      nixosModules.foundryvtt = import ./modules/foundryvtt self;
+      
+      outputsBuilder = channels:
+        let
+          inherit (channels) nixpkgs;
+        in
+        {
+          packages = rec {
+            foundryvtt = nixpkgs.callPackage ./pkgs/foundryvtt { inherit foundryvtt-deps; };
+            foundryvtt-deps = nixpkgs.callPackage ./pkgs/foundryvtt-deps {};
+          };
+        };
+    };
 }

@@ -1,24 +1,29 @@
-flakePackages: { config, lib, pkgs, ... }:
+flake: { config, lib, pkgs, ... }:
 
 let
+  inherit (builtins) toJSON removeAttrs;
+  inherit (lib) filterAttrs types mkEnableOption mkOption;
+  inherit (lib.trivial) pipe;
+
+  inherit (flake.packages.${pkgs.stdenv.hostPlatform.system}) foundryvtt;
+
   cfg = config.services.foundryvtt;
   dataDir = "/var/lib/foundryvtt";
   configFile = pkgs.writeText "options.json"
-    (builtins.toJSON (lib.trivial.pipe cfg [
-      (lst: builtins.removeAttrs lst [ "enable" "package" ])
-      (lib.filterAttrs (attr: value: value != null))
+    (toJSON (pipe cfg [
+      (lst: removeAttrs lst [ "enable" "package" ])
+      (filterAttrs (attr: value: value != null))
     ]));
-  foundryvtt = flakePackages.${pkgs.system}.foundryvtt;
 in
 {
   options = {
-    services.foundryvtt = with lib; with lib.types; {
+    services.foundryvtt = {
       enable = mkEnableOption ''
         Foundry Virtual Tabletop: A standalone application for online tabletop role-playing games.
       '';
 
       awsConfig = mkOption {
-        type = nullOr str;
+        type = types.nullOr types.str;
         default = null;
         description = ''
           A path to an AWS configuration file. This file is used to configure AWs connectivity for
@@ -70,7 +75,7 @@ in
       };
 
       proxyPort = mkOption {
-        type = nullOr int;
+        type = types.nullOr types.int;
         default = null;
         description = ''
           The port on which the reverse proxy server is listening for connections. Foundry uses this
@@ -89,7 +94,7 @@ in
       };
 
       routePrefix = mkOption {
-        type = str;
+        type = types.str;
         default = "";
         description = ''
           A path that will be appended to the FQDN of the server.
@@ -97,7 +102,7 @@ in
       };
 
       sslCert = mkOption {
-        type = nullOr path;
+        type = types.nullOr types.path;
         default = null;
         description = ''
           A path to a SSL certificate that will be used by Foundry to serve over SSL.
@@ -105,7 +110,7 @@ in
       };
 
       sslKey = mkOption {
-        type = nullOr path;
+        type = types.nullOr types.path;
         default = null;
         description = ''
           A path to a SSL key file that will be used by Foundry to serve over SSL.
@@ -152,7 +157,7 @@ in
       # };
 
       package = mkOption {
-        type = package;
+        type = types.package;
         default = foundryvtt;
         description = ''
           The Foundry package to use with the service.
@@ -181,9 +186,7 @@ in
         User = "foundryvtt";
         Group = "foundryvtt";
         Restart = "on-failure";
-        ExecStart = ''
-          ${cfg.package}/bin/foundryvtt --headless --noupdate --dataPath="${dataDir}"
-        '';
+        ExecStart = "${cfg.package}/bin/foundryvtt --headless --noupdate --dataPath=\"${dataDir}\"";
         StateDirectory = "foundryvtt";
         StateDirectoryMode = "0750";
 
@@ -193,7 +196,7 @@ in
         DevicePolicy = "strict";
         IPAddressAllow = "localhost";
         LockPersonality = true;
-        MemoryDenyWriteExecute = true;
+        # MemoryDenyWriteExecute = true;
         NoNewPrivileges = true;
         PrivateDevices = true;
         PrivateTmp = true;
@@ -214,14 +217,13 @@ in
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
         SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
-        UMask = "0077";
+        UMask = "0027";
       };
 
       preStart = ''
         installedConfigFile="${dataDir}/Config/options.json"
-        mkdir -p ${dataDir}/Config
-        rm -f "$installedConfigFile" && cp ${configFile} "$installedConfigFile"
-        chmod 0400 "$installedConfigFile"
+        install -d -m750 ${dataDir}/Config
+        rm -f "$installedConfigFile" && install -m640 ${configFile} "$installedConfigFile"
       '';
     };
   };
