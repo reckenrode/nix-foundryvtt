@@ -191,7 +191,7 @@ in
         StateDirectoryMode = "0750";
 
         # Hardening
-        CapabilityBoundingSet = [ "AF_INET" "AF_INET6" ];
+        CapabilityBoundingSet = [ "AF_NETLINK" "AF_INET" "AF_INET6" ];
         DeviceAllow = [ "/dev/stdin r" ];
         DevicePolicy = "strict";
         IPAddressAllow = "localhost";
@@ -211,7 +211,7 @@ in
         ProtectSystem = "strict";
         ReadOnlyPaths = true;
         RemoveIPC = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [ "AF_NETLINK" "AF_INET" "AF_INET6" ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
