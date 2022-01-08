@@ -21,11 +21,11 @@ stdenv.mkDerivation rec {
   majorVersion = "9";
   minorVersion = "0";
   patchVersion = "0";
-  build = "241";
+  build = "242";
 
   src = requireFile {
     name = "FoundryVTT-${majorVersion}.${build}.zip";
-    sha256 = "sha256-7B0fv3e3VbEfX9s6PPRozPXF5lE9c92FYWqMeqeYWxI=";
+    sha256 = "sha256-9lq+CvwW7v8cYVWLzaA//QrAjAJ7G3JY8MJVGR5thWI=";
     url = "https://foundryvtt.com";
   };
 

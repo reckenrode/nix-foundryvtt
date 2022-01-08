@@ -481,13 +481,13 @@ let
         sha1 = "c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79";
       };
     };
-    "aws-sdk-2.1052.0" = {
+    "aws-sdk-2.1053.0" = {
       name = "aws-sdk";
       packageName = "aws-sdk";
-      version = "2.1052.0";
+      version = "2.1053.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.1052.0.tgz";
-        sha512 = "GtCjW/1yzyJaTavcd22W8aptq2jVyGwXiJXPDLzyqTi0Q34EijSWYIlLk2C8dzIO7L1qnnVvva6u8XL+W0zwLw==";
+        url = "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.1053.0.tgz";
+        sha512 = "bsVudymGczfn7kOsY9tiMFZUCNFOQi7iG3d1HiBFrnEDCKtVTyKuFrXy4iKUPCcjfOaqNnb1S3ZxN/A70MOTkg==";
       };
     };
     "aws-sign2-0.7.0" = {
@@ -2335,13 +2335,13 @@ let
         sha512 = "4+TN2b3tqOCd/kaGRJ/sTYA0tR0mdXx26ipdolxcwtJVqEnqNYvlCAt1q3ypy4QMlYus+Zh34RNtYLoq2oQ4IA==";
       };
     };
-    "sshpk-1.16.1" = {
+    "sshpk-1.17.0" = {
       name = "sshpk";
       packageName = "sshpk";
-      version = "1.16.1";
+      version = "1.17.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/sshpk/-/sshpk-1.16.1.tgz";
-        sha512 = "HXXqVUq7+pcKeLqqZj6mHFUMvXtOJt1uoUx09pFW6011inTMxqI8BA8PM95myrIyyKwdnzjdFjLiE6KBPVtJIg==";
+        url = "https://registry.npmjs.org/sshpk/-/sshpk-1.17.0.tgz";
+        sha512 = "/9HIEs1ZXGhSPE8X6Ccm7Nam1z8KcoCqPdI7ecm1N33EzAetWahvQWVqLZtaZQ+IDKX4IyA2o0gBzqIMkAagHQ==";
       };
     };
     "stack-trace-0.0.10" = {
@@ -2739,7 +2739,7 @@ let
       sources."assert-plus-1.0.0"
       sources."async-2.6.3"
       sources."asynckit-0.4.0"
-      sources."aws-sdk-2.1052.0"
+      sources."aws-sdk-2.1053.0"
       sources."aws-sign2-0.7.0"
       sources."aws4-1.11.0"
       sources."backo2-1.0.2"
@@ -3008,7 +3008,7 @@ let
       })
       sources."source-map-0.6.1"
       sources."source-map-js-1.0.1"
-      sources."sshpk-1.16.1"
+      sources."sshpk-1.17.0"
       sources."stack-trace-0.0.10"
       sources."statuses-1.5.0"
       sources."streamsearch-0.1.2"
