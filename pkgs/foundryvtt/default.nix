@@ -3,7 +3,7 @@
 , coreutils
 , findutils
 , makeWrapper
-, nodejs
+, nodejs-14_x
 , openssl
 , pngout ? null
 , requireFile
@@ -21,17 +21,17 @@ stdenv.mkDerivation rec {
   majorVersion = "9";
   minorVersion = "0";
   patchVersion = "0";
-  build = "249";
+  build = "269";
 
   src = requireFile {
     name = "FoundryVTT-${majorVersion}.${build}.zip";
-    sha256 = "sha256-eXgLhD/GodBkCv1eq4SeqL7ZGx2Yv/TSp8i0t6Z9DAU=";
+    sha256 = "sha256-e8GXQeDXz2l48S754hxEyOXS3goeasXqUrOQ4M3QD5s=";
     url = "https://foundryvtt.com";
   };
 
   outputs = [ "out" "gzip" "zstd" "brotli" ];
 
-  buildInputs = [ openssl nodejs ];
+  buildInputs = [ openssl nodejs-14_x ];
   nativeBuildInputs = [ coreutils makeWrapper unzip gzip zstd brotli ];
 
   unpackPhase = "unzip $src";
@@ -46,6 +46,7 @@ stdenv.mkDerivation rec {
     let
       node_modules = foundryvtt-deps.nodeDependencies.override {
         inherit version;
+        nodejs = nodejs-14_x;
         src = stdenv.mkDerivation {
           inherit src;
           name = "${pname}-${version}-package-json";
@@ -61,7 +62,7 @@ stdenv.mkDerivation rec {
       cp -R resources/app/* $out
       ln -s ${node_modules}/lib/node_modules $out/node_modules
       echo "#!/bin/sh" > $out/libexec/${pname}
-      echo "${nodejs}/bin/node $out/main.js \"\$@\"" >> $out/libexec/${pname}
+      echo "${nodejs-14_x}/bin/node $out/main.js \"\$@\"" >> $out/libexec/${pname}
       chmod a+x $out/libexec/${pname}
       makeWrapper $out/libexec/${pname} $out/bin/${pname} --prefix PATH : "${openssl}/bin"
 
@@ -88,6 +89,6 @@ stdenv.mkDerivation rec {
     homepage = "https://foundryvtt.com";
     description = "A self-hosted, modern, and developer-friendly roleplaying platform.";
     #license = lib.licenses.unfree;
-    platforms = lib.lists.intersectLists nodejs.meta.platforms openssl.meta.platforms;
+    platforms = lib.lists.intersectLists nodejs-14_x.meta.platforms openssl.meta.platforms;
   };
 }

@@ -1,12 +1,12 @@
 # This file originates from node2nix
 
-{lib, stdenv, nodejs, python2, pkgs, libtool, runCommand, writeTextFile, writeShellScript}:
+{lib, stdenv, nodejs-14_x, python2, pkgs, libtool, runCommand, writeTextFile, writeShellScript}:
 
 let
   # Workaround to cope with utillinux in Nixpkgs 20.09 and util-linux in Nixpkgs master
   utillinux = if pkgs ? utillinux then pkgs.utillinux else pkgs.util-linux;
 
-  python = if nodejs ? python then nodejs.python else python2;
+  python = if nodejs-14_x ? python then nodejs-14_x.python else python2;
 
   # Create a tar wrapper that filters all the 'Ignoring unknown extended header keyword' noise
   tarWrapper = runCommand "tarWrapper" {} ''
@@ -27,7 +27,7 @@ let
     stdenv.mkDerivation {
       name = "node-tarball-${name}-${version}";
       inherit src;
-      buildInputs = [ nodejs ];
+      buildInputs = [ nodejs-14_x ];
       buildPhase = ''
         export HOME=$TMPDIR
         tgzFile=$(npm pack | tail -n 1) # Hooks to the pack command will add output (https://docs.npmjs.com/misc/scripts)
@@ -98,7 +98,7 @@ let
       ''
       + (lib.concatMapStrings (dependency:
         ''
-          if [ ! -e "${dependency.name}" ]; then
+          if [ ! -e "${dependency.packageName}" ]; then
               ${composePackage dependency}
           fi
         ''
@@ -204,7 +204,7 @@ let
   # Extract the Node.js source code which is used to compile packages with
   # native bindings
   nodeSources = runCommand "node-sources" {} ''
-    tar --no-same-owner --no-same-permissions -xf ${nodejs.src}
+    tar --no-same-owner --no-same-permissions -xf ${nodejs-14_x.src}
     mv node-* $out
   '';
 
@@ -257,8 +257,8 @@ let
           var packageLock = JSON.parse(fs.readFileSync("./package-lock.json"));
 
           if(![1, 2].includes(packageLock.lockfileVersion)) {
-             process.stderr.write("Sorry, I only understand lock file versions 1 and 2!\n");
-             process.exit(1);
+            process.stderr.write("Sorry, I only understand lock file versions 1 and 2!\n");
+            process.exit(1);
           }
 
           if(packageLock.dependencies !== undefined) {
@@ -390,7 +390,7 @@ let
   buildNodePackage =
     { name
     , packageName
-    , version
+    , version ? null
     , dependencies ? []
     , buildInputs ? []
     , production ? true
@@ -409,13 +409,13 @@ let
       extraArgs = removeAttrs args [ "name" "dependencies" "buildInputs" "dontStrip" "dontNpmInstall" "preRebuild" "unpackPhase" "buildPhase" "meta" ];
     in
     stdenv.mkDerivation ({
-      name = "${name}-${version}";
-      buildInputs = [ tarWrapper python nodejs ]
+      name = "${name}${if version == null then "" else "-${version}"}";
+      buildInputs = [ tarWrapper python nodejs-14_x ]
         ++ lib.optional (stdenv.isLinux) utillinux
         ++ lib.optional (stdenv.isDarwin) libtool
         ++ buildInputs;
 
-      inherit nodejs;
+      inherit nodejs-14_x;
 
       inherit dontStrip; # Stripping may fail a build for some package deployments
       inherit dontNpmInstall preRebuild unpackPhase buildPhase;
@@ -441,6 +441,14 @@ let
         if [ -d "$out/lib/node_modules/.bin" ]
         then
             ln -s $out/lib/node_modules/.bin $out/bin
+
+            # Patch the shebang lines of all the executables
+            ls $out/bin/* | while read i
+            do
+                file="$(readlink -f "$i")"
+                chmod u+rwx "$file"
+                patchShebangs "$file"
+            done
         fi
 
         # Create symlinks to the deployed manual page folders, if applicable
@@ -463,7 +471,7 @@ let
 
       meta = {
         # default to Node.js' platforms
-        platforms = nodejs.meta.platforms;
+        platforms = nodejs-14_x.meta.platforms;
       } // meta;
     } // extraArgs);
 
@@ -471,7 +479,7 @@ let
   buildNodeDependencies =
     { name
     , packageName
-    , version
+    , version ? null
     , src
     , dependencies ? []
     , buildInputs ? []
@@ -489,9 +497,9 @@ let
       extraArgs = removeAttrs args [ "name" "dependencies" "buildInputs" ];
     in
       stdenv.mkDerivation ({
-        name = "node-dependencies-${name}-${version}";
+        name = "node-dependencies-${name}${if version == null then "" else "-${version}"}";
 
-        buildInputs = [ tarWrapper python nodejs ]
+        buildInputs = [ tarWrapper python nodejs-14_x ]
           ++ lib.optional (stdenv.isLinux) utillinux
           ++ lib.optional (stdenv.isDarwin) libtool
           ++ buildInputs;
@@ -519,6 +527,7 @@ let
             if [ -f ${src}/package-lock.json ]
             then
                 cp ${src}/package-lock.json .
+                chmod 644 package-lock.json
             fi
           ''}
 
@@ -541,7 +550,7 @@ let
   buildNodeShell =
     { name
     , packageName
-    , version
+    , version ? null
     , src
     , dependencies ? []
     , buildInputs ? []
@@ -557,11 +566,12 @@ let
 
     let
       nodeDependencies = buildNodeDependencies args;
+      extraArgs = removeAttrs args [ "name" "dependencies" "buildInputs" "dontStrip" "dontNpmInstall" "unpackPhase" "buildPhase" ];
     in
-    stdenv.mkDerivation {
-      name = "node-shell-${name}-${version}";
+    stdenv.mkDerivation ({
+      name = "node-shell-${name}${if version == null then "" else "-${version}"}";
 
-      buildInputs = [ python nodejs ] ++ lib.optional (stdenv.isLinux) utillinux ++ buildInputs;
+      buildInputs = [ python nodejs-14_x ] ++ lib.optional (stdenv.isLinux) utillinux ++ buildInputs;
       buildCommand = ''
         mkdir -p $out/bin
         cat > $out/bin/shell <<EOF
@@ -578,7 +588,7 @@ let
         export NODE_PATH=${nodeDependencies}/lib/node_modules
         export PATH="${nodeDependencies}/bin:$PATH"
       '';
-    };
+    } // extraArgs);
 in
 {
   buildNodeSourceDist = lib.makeOverridable buildNodeSourceDist;

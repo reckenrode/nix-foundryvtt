@@ -26,7 +26,7 @@
         {
           packages = rec {
             foundryvtt = nixpkgs.callPackage ./pkgs/foundryvtt { inherit foundryvtt-deps; };
-            foundryvtt-deps = nixpkgs.callPackage ./pkgs/foundryvtt-deps {};
+            foundryvtt-deps = nixpkgs.callPackage ./pkgs/foundryvtt-deps { };
           };
         };
     };
