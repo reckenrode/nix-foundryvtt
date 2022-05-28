@@ -3,7 +3,7 @@
 , coreutils
 , findutils
 , makeWrapper
-, nodejs-14_x
+, nodejs
 , openssl
 , pngout ? null
 , requireFile
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "gzip" "zstd" "brotli" ];
 
-  buildInputs = [ openssl nodejs-14_x ];
+  buildInputs = [ openssl nodejs ];
   nativeBuildInputs = [ coreutils makeWrapper unzip gzip zstd brotli ];
 
   unpackPhase = "unzip $src";
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     let
       node_modules = foundryvtt-deps.nodeDependencies.override {
         inherit version;
-        nodejs = nodejs-14_x;
+        nodejs = nodejs;
         src = stdenv.mkDerivation {
           inherit src;
           name = "${pname}-${version}-package-json";
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       cp -R resources/app/* $out
       ln -s ${node_modules}/lib/node_modules $out/node_modules
       echo "#!/bin/sh" > $out/libexec/${pname}
-      echo "${nodejs-14_x}/bin/node $out/main.js \"\$@\"" >> $out/libexec/${pname}
+      echo "${nodejs}/bin/node $out/main.js \"\$@\"" >> $out/libexec/${pname}
       chmod a+x $out/libexec/${pname}
       makeWrapper $out/libexec/${pname} $out/bin/${pname} --prefix PATH : "${openssl}/bin"
 
@@ -89,6 +89,6 @@ stdenv.mkDerivation rec {
     homepage = "https://foundryvtt.com";
     description = "A self-hosted, modern, and developer-friendly roleplaying platform.";
     #license = lib.licenses.unfree;
-    platforms = lib.lists.intersectLists nodejs-14_x.meta.platforms openssl.meta.platforms;
+    platforms = lib.lists.intersectLists nodejs.meta.platforms openssl.meta.platforms;
   };
 }
