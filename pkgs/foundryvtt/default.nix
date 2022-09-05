@@ -13,6 +13,11 @@
 , zstd
 , brotli
 , usePngout ? !(stdenv.isDarwin && stdenv.isAarch64)
+, majorVersion ? "10"
+, minorVersion ? "0"
+, patchVersion ? "0"
+, build ? "285"
+, sha256 ? "sha256-lgZdHOmVbq2hHgfILbH5QIEjvP2oNhP+xb4YfrU4VPQ="
 }:
 
 let
@@ -22,14 +27,11 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "foundryvtt";
   version = "${finalAttrs.majorVersion}.${finalAttrs.minorVersion}.${finalAttrs.patchVersion}+${finalAttrs.build}";
 
-  majorVersion = "10";
-  minorVersion = "0";
-  patchVersion = "0";
-  build = "284";
+  inherit majorVersion minorVersion patchVersion build;
 
   src = requireFile {
     name = "FoundryVTT-${finalAttrs.majorVersion}.${finalAttrs.build}.zip";
-    sha256 = "sha256-ZHw5IbFVj6DdM3adzfOMmOMyQIxWo2ggW/wpzCi0aC8=";
+    inherit sha256;
     url = "https://foundryvtt.com";
   };
 
