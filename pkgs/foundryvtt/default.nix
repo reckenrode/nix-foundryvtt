@@ -3,29 +3,33 @@
 , coreutils
 , findutils
 , makeWrapper
-, nodejs
+, nodejs-16_x
 , openssl
-, pngout ? null
+, pngout
 , requireFile
 , unzip
 , foundryvtt-deps
 , gzip
 , zstd
 , brotli
+, usePngout ? !(stdenv.isDarwin && stdenv.isAarch64)
 }:
 
-stdenv.mkDerivation rec {
+let
+	nodejs = nodejs-16_x;
+in
+stdenv.mkDerivation (finalAttrs: {
   pname = "foundryvtt";
-  version = "${majorVersion}.${minorVersion}.${patchVersion}+${build}";
+  version = "${finalAttrs.majorVersion}.${finalAttrs.minorVersion}.${finalAttrs.patchVersion}+${finalAttrs.build}";
 
-  majorVersion = "9";
+  majorVersion = "10";
   minorVersion = "0";
   patchVersion = "0";
-  build = "269";
+  build = "284";
 
   src = requireFile {
-    name = "FoundryVTT-${majorVersion}.${build}.zip";
-    sha256 = "sha256-e8GXQeDXz2l48S754hxEyOXS3goeasXqUrOQ4M3QD5s=";
+    name = "FoundryVTT-${finalAttrs.majorVersion}.${finalAttrs.build}.zip";
+    sha256 = "sha256-ZHw5IbFVj6DdM3adzfOMmOMyQIxWo2ggW/wpzCi0aC8=";
     url = "https://foundryvtt.com";
   };
 
@@ -45,11 +49,11 @@ stdenv.mkDerivation rec {
   installPhase =
     let
       node_modules = foundryvtt-deps.nodeDependencies.override {
-        inherit version;
-        nodejs = nodejs;
+        inherit (finalAttrs) version;
         src = stdenv.mkDerivation {
-          inherit src;
-          name = "${pname}-${version}-package-json";
+          inherit (finalAttrs) src;
+          inherit nodejs;
+          name = "${finalAttrs.pname}-${finalAttrs.version}-package-json";
           nativeBuildInputs = [ unzip ];
           unpackPhase = "unzip $src resources/app/package.json";
           dontBuild = true;
@@ -60,17 +64,18 @@ stdenv.mkDerivation rec {
     ''
       mkdir -p $out $out/bin $out/libexec
       cp -R resources/app/* $out
-      ln -s ${node_modules}/lib/node_modules $out/node_modules
-      echo "#!/bin/sh" > $out/libexec/${pname}
-      echo "${nodejs}/bin/node $out/main.js \"\$@\"" >> $out/libexec/${pname}
-      chmod a+x $out/libexec/${pname}
-      makeWrapper $out/libexec/${pname} $out/bin/${pname} --prefix PATH : "${openssl}/bin"
+      ln -s ${lib.getLib node_modules}/lib/node_modules $out/node_modules
+      echo "#!/bin/sh" > $out/libexec/${finalAttrs.pname}
+      echo "${lib.getBin nodejs}/bin/node $out/main.js \"\$@\"" >> $out/libexec/${finalAttrs.pname}
+      chmod a+x $out/libexec/${finalAttrs.pname}
+      makeWrapper $out/libexec/${finalAttrs.pname} $out/bin/${finalAttrs.pname} \
+	    --prefix PATH : "${lib.getBin openssl}/bin"
 
       # Run PNG images through `pngout` if it’s available.
-      ${if pngout != null then ''
+      ${if usePngout then ''
         find $out/public -name '*.png' -exec ${pngout}/bin/pngout {} -k1 -y \;
       '' else ""}
-      
+
       # Precompress assets for use with e.g., Caddy
       for method in gzip zstd brotli; do
         mkdir -p ''${!method}
@@ -91,4 +96,4 @@ stdenv.mkDerivation rec {
     #license = lib.licenses.unfree;
     platforms = lib.lists.intersectLists nodejs.meta.platforms openssl.meta.platforms;
   };
-}
+})

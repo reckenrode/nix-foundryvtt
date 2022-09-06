@@ -1,12 +1,12 @@
 # This file originates from node2nix
 
-{lib, stdenv, nodejs-14_x, python2, pkgs, libtool, runCommand, writeTextFile, writeShellScript}:
+{lib, stdenv, nodejs, python2, pkgs, libtool, runCommand, writeTextFile, writeShellScript}:
 
 let
   # Workaround to cope with utillinux in Nixpkgs 20.09 and util-linux in Nixpkgs master
   utillinux = if pkgs ? utillinux then pkgs.utillinux else pkgs.util-linux;
 
-  python = if nodejs-14_x ? python then nodejs-14_x.python else python2;
+  python = if nodejs ? python then nodejs.python else python2;
 
   # Create a tar wrapper that filters all the 'Ignoring unknown extended header keyword' noise
   tarWrapper = runCommand "tarWrapper" {} ''
@@ -27,7 +27,7 @@ let
     stdenv.mkDerivation {
       name = "node-tarball-${name}-${version}";
       inherit src;
-      buildInputs = [ nodejs-14_x ];
+      buildInputs = [ nodejs ];
       buildPhase = ''
         export HOME=$TMPDIR
         tgzFile=$(npm pack | tail -n 1) # Hooks to the pack command will add output (https://docs.npmjs.com/misc/scripts)
@@ -204,7 +204,7 @@ let
   # Extract the Node.js source code which is used to compile packages with
   # native bindings
   nodeSources = runCommand "node-sources" {} ''
-    tar --no-same-owner --no-same-permissions -xf ${nodejs-14_x.src}
+    tar --no-same-owner --no-same-permissions -xf ${nodejs.src}
     mv node-* $out
   '';
 
@@ -410,12 +410,12 @@ let
     in
     stdenv.mkDerivation ({
       name = "${name}${if version == null then "" else "-${version}"}";
-      buildInputs = [ tarWrapper python nodejs-14_x ]
+      buildInputs = [ tarWrapper python nodejs ]
         ++ lib.optional (stdenv.isLinux) utillinux
         ++ lib.optional (stdenv.isDarwin) libtool
         ++ buildInputs;
 
-      inherit nodejs-14_x;
+      inherit nodejs;
 
       inherit dontStrip; # Stripping may fail a build for some package deployments
       inherit dontNpmInstall preRebuild unpackPhase buildPhase;
@@ -471,7 +471,7 @@ let
 
       meta = {
         # default to Node.js' platforms
-        platforms = nodejs-14_x.meta.platforms;
+        platforms = nodejs.meta.platforms;
       } // meta;
     } // extraArgs);
 
@@ -499,7 +499,7 @@ let
       stdenv.mkDerivation ({
         name = "node-dependencies-${name}${if version == null then "" else "-${version}"}";
 
-        buildInputs = [ tarWrapper python nodejs-14_x ]
+        buildInputs = [ tarWrapper python nodejs ]
           ++ lib.optional (stdenv.isLinux) utillinux
           ++ lib.optional (stdenv.isDarwin) libtool
           ++ buildInputs;
@@ -571,7 +571,7 @@ let
     stdenv.mkDerivation ({
       name = "node-shell-${name}${if version == null then "" else "-${version}"}";
 
-      buildInputs = [ python nodejs-14_x ] ++ lib.optional (stdenv.isLinux) utillinux ++ buildInputs;
+      buildInputs = [ python nodejs ] ++ lib.optional (stdenv.isLinux) utillinux ++ buildInputs;
       buildCommand = ''
         mkdir -p $out/bin
         cat > $out/bin/shell <<EOF
