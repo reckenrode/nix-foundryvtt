@@ -5,29 +5,30 @@
     the browser.
   '';
 
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.05";
-    utils.url = "github:gytis-ivaskevicius/flake-utils-plus/v1.3.1";
-  };
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-22.05";
 
-  outputs = inputs@{ self, utils, nixpkgs, ... }:
+  outputs = inputs@{ self, nixpkgs, ... }:
     let
-      packages = import ./pkgs;
-    in
-    utils.lib.mkFlake rec {
-      inherit self inputs;
+      lib = nixpkgs.lib;
 
-      nixosModules.foundryvtt = import ./modules/foundryvtt self;
-      
-      outputsBuilder = channels:
+      darwin = [ "x86_64-darwin" "aarch64-darwin" ];
+      linux = [ "x86_64-linux" "aarch64-linux" ];
+
+      forEachSystem = systems: f: lib.genAttrs systems (system: f system);
+      forAllSystems = forEachSystem (darwin ++ linux);
+    in
+    {
+      nixosModules = forEachSystem linux (_: {
+        foundryvtt = import ./modules/foundryvtt self;
+      });
+      packages = forAllSystems (system:
         let
-          inherit (channels) nixpkgs;
+          pkgs = import nixpkgs { inherit system; };
         in
         {
-          packages = rec {
-            foundryvtt = nixpkgs.callPackage ./pkgs/foundryvtt { inherit foundryvtt-deps; };
-            foundryvtt-deps = nixpkgs.callPackage ./pkgs/foundryvtt-deps { };
+          foundryvtt = pkgs.callPackage ./pkgs/foundryvtt {
+            foundryvtt-deps = pkgs.callPackage ./pkgs/foundryvtt-deps { };
           };
-        };
+        });
     };
 }
