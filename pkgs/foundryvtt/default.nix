@@ -16,7 +16,7 @@
 }:
 
 let
-	nodejs = nodejs-16_x;
+  nodejs = nodejs-16_x;
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "foundryvtt";
@@ -69,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
       echo "${lib.getBin nodejs}/bin/node $out/main.js \"\$@\"" >> $out/libexec/${finalAttrs.pname}
       chmod a+x $out/libexec/${finalAttrs.pname}
       makeWrapper $out/libexec/${finalAttrs.pname} $out/bin/${finalAttrs.pname} \
-	    --prefix PATH : "${lib.getBin openssl}/bin"
+        --prefix PATH : "${lib.getBin openssl}/bin"
 
       # Run PNG images through `pngout` if it’s available.
       ${if usePngout then ''
