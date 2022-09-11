@@ -65,6 +65,14 @@ in
         '';
       };
 
+      world = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = ''
+          The default world to launch.
+        '';
+      };
+
       minifyStaticFiles = mkOption {
         type = types.bool;
         default = false;
