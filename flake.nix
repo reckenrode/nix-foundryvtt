@@ -18,9 +18,7 @@
       forAllSystems = forEachSystem (darwin ++ linux);
     in
     {
-      nixosModules = forEachSystem linux (system: {
-        foundryvtt = self.packages.${system}.foundryvtt;
-      });
+      nixosModules.foundryvtt = import ./modules/foundryvtt self;
       packages = forAllSystems (system:
         let
           pkgs = import nixpkgs { inherit system; };
