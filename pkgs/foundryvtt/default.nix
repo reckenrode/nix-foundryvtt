@@ -1,22 +1,24 @@
 { lib
+, callPackage
 , stdenv
 , coreutils
 , findutils
 , makeWrapper
-, nodejs-16_x
+, nodejs-18_x
 , openssl
 , pngout
 , requireFile
 , unzip
-, foundryvtt-deps
 , gzip
 , zstd
 , brotli
+# FIXME: Once nixpkgs-22.11 is out, aarch64-darwin can use pkgsx86_64Darwin to get pngout
 , usePngout ? !(stdenv.isDarwin && stdenv.isAarch64)
 }:
 
 let
-  nodejs = nodejs-16_x;
+  nodejs = nodejs-18_x;
+  foundryvtt-deps = callPackage ./foundryvtt-deps { };
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "foundryvtt";
@@ -25,11 +27,11 @@ stdenv.mkDerivation (finalAttrs: {
   majorVersion = "10";
   minorVersion = "0";
   patchVersion = "0";
-  build = "284";
+  build = "288";
 
   src = requireFile {
     name = "FoundryVTT-${finalAttrs.majorVersion}.${finalAttrs.build}.zip";
-    sha256 = "sha256-ZHw5IbFVj6DdM3adzfOMmOMyQIxWo2ggW/wpzCi0aC8=";
+    sha256 = "sha256-3+Z3YyBb4cB5k9F8t5PIGqwOsxXHbnC1eTNPjdgZpHk=";
     url = "https://foundryvtt.com";
   };
 
