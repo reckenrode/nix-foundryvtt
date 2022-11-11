@@ -527,13 +527,13 @@ let
         sha512 = "DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==";
       };
     };
-    "aws-sdk-2.1248.0" = {
+    "aws-sdk-2.1253.0" = {
       name = "aws-sdk";
       packageName = "aws-sdk";
-      version = "2.1248.0";
+      version = "2.1253.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.1248.0.tgz";
-        sha512 = "PxSweXAmKZyhHoPOPphz2XN9/3SDdNs/HBrLn7YF6c+AnZz8VPxCPYRFbFGUTLfQmdz5Cog82tDzwgFd4KGzFQ==";
+        url = "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.1253.0.tgz";
+        sha512 = "jlEfWPmRGRdeSVhtRhZnX/vvbJtHu6wzrm7DEUytef5I8P9kxFXnY/lByaXN20WpoU9Kw8zcEOVYIre4LLgswA==";
       };
     };
     "aws-sign2-0.7.0" = {
@@ -1976,13 +1976,13 @@ let
         sha512 = "/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==";
       };
     };
-    "node-fetch-3.2.10" = {
+    "node-fetch-3.3.0" = {
       name = "node-fetch";
       packageName = "node-fetch";
-      version = "3.2.10";
+      version = "3.3.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/node-fetch/-/node-fetch-3.2.10.tgz";
-        sha512 = "MhuzNwdURnZ1Cp4XTazr69K0BTizsBroX7Zx3UgDSVcZYKF/6p0CBe4EUb/hLqmzVhl0UpYfgRljQ4yxE+iCxA==";
+        url = "https://registry.npmjs.org/node-fetch/-/node-fetch-3.3.0.tgz";
+        sha512 = "BKwRP/O0UvoMKp7GNdwPlObhYGB5DQqwhEDQlNKuoqwVYSxkSZCSbHjnFFmUEtwSKRPU4kNK8PbDYYitwaE3QA==";
       };
     };
     "node-gyp-build-4.5.0" = {
@@ -2147,13 +2147,13 @@ let
         sha512 = "TAovIMCvKiWlonyAEbStOSq2+GZliRgs+Pqlavffa/D0Rmvmb78bytWRxgonGx1qkg7G8W7eIbF55tFP4a5Krw==";
       };
     };
-    "postcss-8.4.18" = {
+    "postcss-8.4.19" = {
       name = "postcss";
       packageName = "postcss";
-      version = "8.4.18";
+      version = "8.4.19";
       src = fetchurl {
-        url = "https://registry.npmjs.org/postcss/-/postcss-8.4.18.tgz";
-        sha512 = "Wi8mWhncLJm11GATDaQKobXSNEYGUHeQLiQqDFG1qQ5UTDPTEvKw0Xt5NsTpktGTwLps3ByrWsBrG0rB8YQ9oA==";
+        url = "https://registry.npmjs.org/postcss/-/postcss-8.4.19.tgz";
+        sha512 = "h+pbPsyhlYj6N2ozBmHhHrs9DzGmbaarbLvWipMRO7RLS+v4onj26MPFXA5OBYFxyqYhUJK456SwDcY9H2/zsA==";
       };
     };
     "promise-polyfill-8.2.3" = {
@@ -3006,7 +3006,7 @@ let
   args = {
     name = "foundryvtt";
     packageName = "foundryvtt";
-    version = "10.288.0";
+    version = "10.290.0";
     src = ./.;
     dependencies = [
       sources."@colors/colors-1.5.0"
@@ -3065,7 +3065,7 @@ let
       sources."async-2.6.4"
       sources."asynckit-0.4.0"
       sources."available-typed-arrays-1.0.5"
-      (sources."aws-sdk-2.1248.0" // {
+      (sources."aws-sdk-2.1253.0" // {
         dependencies = [
           sources."url-0.10.3"
         ];
@@ -3267,7 +3267,7 @@ let
       sources."negotiator-0.6.3"
       sources."neo-async-2.6.2"
       sources."node-domexception-1.0.0"
-      sources."node-fetch-3.2.10"
+      sources."node-fetch-3.3.0"
       sources."node-gyp-build-4.5.0"
       sources."oauth-sign-0.9.0"
       sources."object-assign-4.1.1"
@@ -3286,7 +3286,7 @@ let
       sources."performance-now-2.1.0"
       sources."picocolors-1.0.0"
       sources."pixi.js-6.5.8"
-      sources."postcss-8.4.18"
+      sources."postcss-8.4.19"
       sources."promise-polyfill-8.2.3"
       sources."proper-lockfile-4.1.2"
       sources."prosemirror-collab-1.3.0"

@@ -27,11 +27,11 @@ stdenv.mkDerivation (finalAttrs: {
   majorVersion = "10";
   minorVersion = "0";
   patchVersion = "0";
-  build = "288";
+  build = "290";
 
   src = requireFile {
     name = "FoundryVTT-${finalAttrs.majorVersion}.${finalAttrs.build}.zip";
-    sha256 = "sha256-3+Z3YyBb4cB5k9F8t5PIGqwOsxXHbnC1eTNPjdgZpHk=";
+    sha256 = "sha256-OGjHsTbFMIRfsT8sZE/vtf1z+T+H2yp5R1MJndv0Vao=";
     url = "https://foundryvtt.com";
   };
 
