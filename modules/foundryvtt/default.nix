@@ -186,7 +186,7 @@ in
         User = "foundryvtt";
         Group = "foundryvtt";
         Restart = "on-failure";
-        ExecStart = "${cfg.package}/bin/foundryvtt --headless --noupdate --dataPath=\"${dataDir}\"";
+        ExecStart = "${lib.getBin cfg.package}/bin/foundryvtt --headless --noupdate --dataPath=\"${dataDir}\"";
         StateDirectory = "foundryvtt";
         StateDirectoryMode = "0750";
 
@@ -209,7 +209,7 @@ in
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         ProtectSystem = "strict";
-        ReadOnlyPaths = true;
+        ReadOnlyPaths = [ "/" ];
         RemoveIPC = true;
         RestrictAddressFamilies = [ "AF_NETLINK" "AF_INET" "AF_INET6" ];
         RestrictNamespaces = true;
