@@ -192,7 +192,7 @@ in
       serviceConfig = {
         User = "foundryvtt";
         Group = "foundryvtt";
-        Restart = "on-failure";
+        Restart = "always";
         ExecStart = "${lib.getBin cfg.package}/bin/foundryvtt --headless --noupdate --dataPath=\"${config.services.foundryvtt.dataDir}\"";
         StateDirectory = "foundryvtt";
         StateDirectoryMode = "0750";
