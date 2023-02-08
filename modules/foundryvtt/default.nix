@@ -8,10 +8,9 @@ let
   inherit (flake.packages.${pkgs.stdenv.hostPlatform.system}) foundryvtt;
 
   cfg = config.services.foundryvtt;
-  dataDir = "/var/lib/foundryvtt";
   configFile = pkgs.writeText "options.json"
     (toJSON (pipe cfg [
-      (lst: removeAttrs lst [ "enable" "package" ])
+      (lst: removeAttrs lst [ "enable" "package" "dataDir" ])
       (filterAttrs (attr: value: value != null))
     ]));
 in
@@ -31,14 +30,6 @@ in
         '';
       };
 
-      # dataPath = mkOption {
-      #   type = types.path;
-      #   default = dataDir;
-      #   description = ''
-      #     The path where Foundry keeps its config, data, and logs.
-      #   '';
-      # };
-
       hostname = mkOption {
         type = types.str;
         default = config.networking.hostname;
@@ -54,6 +45,14 @@ in
         default = 30000;
         description = ''
           The port that Foundry bind to listen for connections.
+        '';
+      };
+
+      dataDir = mkOption {
+        type = types.str;
+        default = "/var/lib/foundryvtt";
+        description = lib.mdDoc ''
+          The path where Foundry keeps its config, data, and logs.
         '';
       };
 
@@ -172,7 +171,7 @@ in
         '';
       };
     };
- };
+  };
 
   config = lib.mkIf cfg.enable {
     users.users.foundryvtt = {
@@ -181,7 +180,7 @@ in
       group = "foundryvtt";
     };
 
-    users.groups.foundryvtt = {};
+    users.groups.foundryvtt = { };
 
     systemd.services.foundryvtt = {
       description = "Foundry Virtual Tabletop";
@@ -194,7 +193,7 @@ in
         User = "foundryvtt";
         Group = "foundryvtt";
         Restart = "on-failure";
-        ExecStart = "${lib.getBin cfg.package}/bin/foundryvtt --headless --noupdate --dataPath=\"${dataDir}\"";
+        ExecStart = "${lib.getBin cfg.package}/bin/foundryvtt --headless --noupdate --dataPath=\"${config.services.foundryvtt.dataDir}\"";
         StateDirectory = "foundryvtt";
         StateDirectoryMode = "0750";
 
@@ -229,8 +228,8 @@ in
       };
 
       preStart = ''
-        installedConfigFile="${dataDir}/Config/options.json"
-        install -d -m750 ${dataDir}/Config
+        installedConfigFile="${config.services.foundryvtt.dataDir}/Config/options.json"
+        install -d -m750 ${config.services.foundryvtt.dataDir}/Config
         rm -f "$installedConfigFile" && install -m640 ${configFile} "$installedConfigFile"
       '';
     };
