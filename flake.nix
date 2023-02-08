@@ -5,7 +5,7 @@
     the browser.
   '';
 
-  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-22.05";
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
 
   outputs = inputs@{ self, nixpkgs, ... }:
     let
@@ -25,6 +25,7 @@
         in
         {
           foundryvtt = pkgs.callPackage ./pkgs/foundryvtt { };
+          default = self.packages.${system}.foundryvtt;
         });
     };
 }
