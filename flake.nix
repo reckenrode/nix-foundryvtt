@@ -21,9 +21,11 @@
       nixosModules.foundryvtt = import ./modules/foundryvtt self;
       packages = forAllSystems (system:
         let
-          pkgs = import nixpkgs { inherit system; config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-             "pngout"
-           ];};
+          pkgs = import nixpkgs {
+            inherit system; config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+            "pngout"
+          ];
+          };
         in
         {
           foundryvtt = pkgs.callPackage ./pkgs/foundryvtt { };
