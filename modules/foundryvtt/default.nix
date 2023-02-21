@@ -2,7 +2,7 @@ flake: { config, lib, pkgs, ... }:
 
 let
   inherit (builtins) toJSON removeAttrs;
-  inherit (lib) filterAttrs types mkEnableOption mkOption;
+  inherit (lib) filterAttrs types mkEnableOption mkOption mkRenamedOptionModule;
   inherit (lib.trivial) pipe;
 
   inherit (flake.packages.${pkgs.stdenv.hostPlatform.system}) foundryvtt;
@@ -10,11 +10,16 @@ let
   cfg = config.services.foundryvtt;
   configFile = pkgs.writeText "options.json"
     (toJSON (pipe cfg [
-      (lst: removeAttrs lst [ "enable" "package" "dataDir" ])
+      (cfg: cfg // { hostname = cfg.hostName; })
+      (lst: removeAttrs lst [ "enable" "hostName" "package" "dataDir" ])
       (filterAttrs (attr: value: value != null))
     ]));
 in
 {
+  imports = [
+    (mkRenamedOptionModule [ "services" "foundryvtt" "hostname" ] [ "services" "foundryvtt" "hostName" ])
+  ];
+
   options = {
     services.foundryvtt = {
       enable = mkEnableOption ''
@@ -30,9 +35,9 @@ in
         '';
       };
 
-      hostname = mkOption {
+      hostName = mkOption {
         type = types.str;
-        default = config.networking.hostname;
+        default = config.networking.hostName;
         description = ''
           A custom hostname to use in place of the host machine’s public IP address when displaying
           the address of the game session. This allows for reverse proxies or DNS servers to modify
