@@ -24,14 +24,14 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "foundryvtt";
   version = "${finalAttrs.majorVersion}.${finalAttrs.minorVersion}.${finalAttrs.patchVersion}+${finalAttrs.build}";
 
-  majorVersion = "10";
+  majorVersion = "11";
   minorVersion = "0";
   patchVersion = "0";
-  build = "291";
+  build = "301";
 
   src = requireFile {
     name = "FoundryVTT-${finalAttrs.majorVersion}.${finalAttrs.build}.zip";
-    sha256 = "0j9xjqqpl8maggi45wskajxl2c9jlcl8pw1cx6nmgbcj5w4c5xrf";
+    sha256 = "1r5bqhd3cfq3yvzb1yybgvysbhbjqv6d2f768b063fdsdq2ixi2s";
     url = "https://foundryvtt.com";
   };
 
