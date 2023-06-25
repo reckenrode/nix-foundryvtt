@@ -19,6 +19,13 @@
 let
   nodejs = nodejs-18_x;
   foundryvtt-deps = callPackage ./foundryvtt-deps { };
+
+  foundry-version-hashes = version: {
+    "10.291" = "0j9xjqqpl8maggi45wskajxl2c9jlcl8pw1cx6nmgbcj5w4c5xrf";
+    "11.301" = "1r5bqhd3cfq3yvzb1yybgvysbhbjqv6d2f768b063fdsdq2ixi2s";
+  }.${version} or (
+    lib.warn "Unknown foundryvtt version: '${version}'. Please update foundry-version-hashes." lib.fakeHash
+  );
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "foundryvtt";
@@ -31,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = requireFile {
     name = "FoundryVTT-${finalAttrs.majorVersion}.${finalAttrs.build}.zip";
-    sha256 = "1r5bqhd3cfq3yvzb1yybgvysbhbjqv6d2f768b063fdsdq2ixi2s";
+    sha256 = foundry-version-hashes "${finalAttrs.majorVersion}.${finalAttrs.build}";
     url = "https://foundryvtt.com";
   };
 
