@@ -28,6 +28,7 @@ let
     "11.305" = "1m2zsw9ypah109qj6nkfh3aa13n35mbh2v5g4r26vsbx3mk8azy4";
     "11.306" = "15a5pxc37rv898gn5d1f8dv59j57r3nxqdw10mj4c5cbjly438x0";
     "11.307" = "0k5qkmf1kk01227ads3bh7bgkrvjhjhjbwp6hkl58zdm166dikah";
+    "11.308" = "04jckd3i81a3jdq86cqp7s6b3gpsx9d1q8sbcca4fzk37yr2c53c";
   }.${version} or (
     lib.warn "Unknown foundryvtt version: '${version}'. Please update foundry-version-hashes." lib.fakeHash
   );
@@ -39,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
   majorVersion = "11";
   minorVersion = "0";
   patchVersion = "0";
-  build = "307";
+  build = "308";
 
   src = requireFile {
     name = "FoundryVTT-${finalAttrs.majorVersion}.${finalAttrs.build}.zip";
