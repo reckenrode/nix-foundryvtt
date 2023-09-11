@@ -29,7 +29,11 @@
           };
         in
         {
-          foundryvtt = pkgs.callPackage ./pkgs/foundryvtt { };
+          foundryvtt = pkgs.callPackage ./pkgs/foundryvtt {
+            pngout = if pkgs.stdenv.isDarwin && pkgs.stdenv.isAarch64
+              then pkgs.pkgsx86_64Darwin.pngout
+              else pkgs.pngout;
+          };
           default = self.packages.${system}.foundryvtt;
         });
     };
