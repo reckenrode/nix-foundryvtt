@@ -35,7 +35,7 @@
               else pkgs.pngout;
           };
           foundryvtt_10 = self.packages.${system}.foundryvtt.overrideAttrs {
-            version = "10.0.0+291";
+            version = "10.0.0+303";
           };
           foundryvtt_11 = self.packages.${system}.foundryvtt;
           default = self.packages.${system}.foundryvtt;

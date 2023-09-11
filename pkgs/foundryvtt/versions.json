@@ -3,6 +3,10 @@
     "hash": "sha256-LvfCCC+SrVet6SzwiyijMjFBu1RT80Lie6oiejGWPUk=",
     "npmDepsHash": "sha256-YCnsX0hlfyTF2PbM7dm7YcryeylcKihQ2Exao0ieGqE="
   },
+  "10.303": {
+    "hash": "sha256-r0Ze/oMsuPHDsONl8X+BFZNUwodAhf1CyPXYRfBdrf4=",
+    "npmDepsHash": "sha256-HqgvuZ+XFwb8jcqzkyoqDBB/KYeWvJkbBaSeVgy1gm8="
+  },
   "11.301": {
     "hash": "sha256-WsQeBW66uWHAQuY40czGcsGl/X7L+7D+9gM7NhrEq+Q=",
     "npmDepsHash": "sha256-gFNxLZlNw3iLnAgx8gkzscsUb5YbFo8gnRK0tXcrqcE="
@@ -26,5 +30,9 @@
   "11.307": {
     "hash": "sha256-UM3YjAm1fVTohObyJaGEcuf51oFr6KaOEAHMGVyduEw=",
     "npmDepsHash": "sha256-pkwTgGR/WwXMwbea8zWpZMe/c6BA5fSH0xaOPZHjMhM="
+  },
+  "9.280": {
+    "hash": "sha256-+cYM7qqQfH51fISyNlgzL1V5/F4tedio9mRTu3Vi/TI=",
+    "npmDepsHash": "sha256-RgFQ9Wi8fyEKR2VOxV13mO6vIyPtBgfoUNqRb1RI8Uo="
   }
 }
