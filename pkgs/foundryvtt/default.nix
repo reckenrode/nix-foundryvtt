@@ -96,7 +96,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "foundryvtt";
-  version = "11.0.0+307";
+  version = "11.0.0+308";
 
   majorVersion = lib.versions.major finalAttrs.version;
   minorVersion = lib.versions.minor finalAttrs.version;
