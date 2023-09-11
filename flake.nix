@@ -34,6 +34,9 @@
               then pkgs.pkgsx86_64Darwin.pngout
               else pkgs.pngout;
           };
+          foundryvtt_9 = self.packages.${system}.foundryvtt.overrideAttrs {
+            version = "9.0.0+280";
+          };
           foundryvtt_10 = self.packages.${system}.foundryvtt.overrideAttrs {
             version = "10.0.0+303";
           };
