@@ -118,6 +118,49 @@ stdenv.mkDerivation (finalAttrs: {
       ln -s "${foundryvtt.brotli}" "$brotli"
     '';
 
+  passthru.updateScript = writeScript "update-foundryvtt" ''
+    #!/usr/bin/env nix-shell
+    #!nix-shell -i bash -p coreutils gnused jq moreutils nodejs prefetch-npm-deps unzip
+    set -eu -o pipefail
+
+    src=''${src:-$1}
+
+    shortVersion=$(basename "$src" | sed 's|.*-\([0-9][0-9]*\.[0-9][0-9]*\).zip|\1|')
+    version="''${shortVersion%%.*}.0.0+''${shortVersion#*.}"
+
+    foundrySrc=$(mktemp -d)
+    trap 'rm -rf -- "$foundrySrc"' EXIT
+
+    unzip -q "$src" -d "$foundrySrc"
+
+    # Generate package-lock.json for the requested version
+    pushd "$foundrySrc/resources/app" > /dev/null
+    sed \
+      -e 's|"@foundryvtt/pdfjs": "2.14.305"|"@foundryvtt/pdfjs": "foundryvtt/pdfjs#d9c4a6ee44512a094bc7395aa0ba7fe9be9a8375"|' \
+      -e 's|"@foundryvtt/pdfjs": "2.14.305-1"|"@foundryvtt/pdfjs": "foundryvtt/pdfjs#2196ae9bcbd8d6a9b0b9c493d0e9f3aca13f2fd9"|' \
+      -e 's|"@foundryvtt/pdfjs": "\([0-9.-]*\)"|"@foundryvtt/pdfjs": "foundryvtt/pdfjs#v\1"|' \
+      -i package.json
+    npm update
+    sed \
+      -e 's|"@foundryvtt/pdfjs": "foundryvtt/pdfjs#d9c4a6ee44512a094bc7395aa0ba7fe9be9a8375"|"@foundryvtt/pdfjs": "2.14.305"|' \
+      -e 's|"@foundryvtt/pdfjs": "foundryvtt/pdfjs#2196ae9bcbd8d6a9b0b9c493d0e9f3aca13f2fd9"|"@foundryvtt/pdfjs": "2.14.305-1"|' \
+      -e 's|"@foundryvtt/pdfjs": "foundryvtt/pdfjs#v\([^"]*\)"|"@foundryvtt/pdfjs": "\1"|' \
+      -i package-lock.json
+    popd
+
+    cp "$foundrySrc/resources/app/package-lock.json" "./pkgs/foundryvtt/deps/package-lock-$shortVersion.json"
+
+    hash=$(nix hash file "$src")
+    npmsDepsHash=$(prefetch-npm-deps "$foundrySrc/resources/app/package-lock.json")
+
+    versionJson="{\"$shortVersion\": { \"hash\": \"$hash\", \"npmDepsHash\": \"$npmsDepsHash\" }}"
+    jq -S ". * $versionJson" ./pkgs/foundryvtt/versions.json \
+      | sponge ./pkgs/foundryvtt/versions.json
+
+    sed "s|version = \"${finalAttrs.version}\";|version = \"$version\";|" \
+      -i ./pkgs/foundryvtt/default.nix
+  '';
+
   meta = {
     homepage = "https://foundryvtt.com";
     description = "A self-hosted, modern, and developer-friendly roleplaying platform.";
