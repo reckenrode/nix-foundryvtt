@@ -93,15 +93,83 @@ let
         find "$brotli" -type f -exec brotli -9 --rm {} +
       '';
     };
+
+  formatVersion = attrs:
+    let
+      version = attrs.version or defaultVersion;
+
+      build = attrs.build or (lib.last (lib.versions.splitVersion version));
+
+      majorVersion =
+        let
+          v9 = {
+            lower = "220";
+            upper = "260" ;
+            exceptions = [ "266" "268" "269" "280" ];
+          };
+
+          v10 = {
+            lower = "260";
+            upper = "292";
+            exceptions = [ "303" ];
+          };
+
+          v11 = {
+            lower = "292";
+            upper = null;
+            exceptions = [ ];
+          };
+
+          isVersion = version: range:
+            lib.versionAtLeast version range.lower
+            && (range.upper == null || lib.versionOlder version range.upper)
+            || lib.elem version range.exceptions;
+        in
+        attrs.majorVersion or (
+          /**/ if isVersion build v9 then "9"
+          else if isVersion build v10 then "10"
+          else if isVersion build v11 then "11"
+          else null
+        );
+
+      olderMap = {
+        "71" = "0.6.0";
+        "72" = "0.6.1";
+        "73" = "0.6.2";
+        "74" = "0.6.3";
+        "75" = "0.6.4";
+        "76" = "0.6.5";
+        "79" = "0.6.6";
+        "77" = "0.7.0";
+        "78" = "0.7.1";
+        "80" = "0.7.2";
+        "81" = "0.7.3";
+        "82" = "0.7.4";
+        "83" = "0.7.5";
+        "84" = "0.7.6";
+        "85" = "0.7.7";
+        "86" = "0.7.8";
+        "87" = "0.7.9";
+        "94" = "0.7.10";
+        "88" = "0.8.0";
+        "89" = "0.8.1";
+        "90" = "0.8.2";
+        "91" = "0.8.3";
+        "92" = "0.8.4";
+        "93" = "0.8.5";
+        "95" = "0.8.6";
+        "97" = "0.8.7";
+        "101" = "0.8.8";
+        "102" = "0.8.9";
+      };
+      mappedVersion = olderMap.${build} or "${majorVersion}.0.0";
+    in
+    "${mappedVersion}+${build}";
+
+  defaultVersion = "11.0.0+308";
 in
 stdenv.mkDerivation (finalAttrs: {
-  pname = "foundryvtt";
-  version = "11.0.0+308";
-
-  majorVersion = lib.versions.major finalAttrs.version;
-  minorVersion = lib.versions.minor finalAttrs.version;
-  patchVersion = lib.versions.patch finalAttrs.version;
-  build = lib.last (lib.versions.splitVersion finalAttrs.version);
+  name = "foundryvtt-${formatVersion finalAttrs}";
 
   dontUnpack = true;
   dontFixup = true;
@@ -110,7 +178,16 @@ stdenv.mkDerivation (finalAttrs: {
 
   installPhase =
     let
-      foundryvtt = foundryPkg finalAttrs;
+      foundryvtt = foundryPkg rec {
+        pname = lib.getName finalAttrs;
+        version = formatVersion finalAttrs;
+        majorVersion = finalAttrs.majorVersion or (
+          if lib.versionAtLeast version "9"
+            then lib.versions.major version
+            else lib.versions.minor version
+        );
+        build = finalAttrs.build or (lib.last (lib.versions.splitVersion version));
+      };
     in ''
       ln -s "${foundryvtt.outPath}" "$out"
       ln -s "${foundryvtt.gzip}" "$gzip"
@@ -157,7 +234,7 @@ stdenv.mkDerivation (finalAttrs: {
     jq -S ". * $versionJson" ./pkgs/foundryvtt/versions.json \
       | sponge ./pkgs/foundryvtt/versions.json
 
-    sed "s|version = \"${finalAttrs.version}\";|version = \"$version\";|" \
+    sed "s|defaultVersion = \"${formatVersion finalAttrs}\";|defaultVersion = \"$version\";|" \
       -i ./pkgs/foundryvtt/default.nix
   '';
 
