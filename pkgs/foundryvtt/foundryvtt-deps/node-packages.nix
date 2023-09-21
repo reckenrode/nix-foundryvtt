@@ -4429,7 +4429,7 @@ let
     name = "foundryvtt";
     packageName = "foundryvtt";
     version = "11.309.0";
-    src = ../../../../tmp/foundry/resources/app;
+    src = ../../../tmp/resources/app;
     dependencies = [
       (sources."@aws-crypto/crc32-3.0.0" // {
         dependencies = [
