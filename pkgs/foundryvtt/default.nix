@@ -216,12 +216,14 @@ stdenv.mkDerivation (finalAttrs: {
       -e 's|"@foundryvtt/pdfjs": "2.14.305"|"@foundryvtt/pdfjs": "foundryvtt/pdfjs#d9c4a6ee44512a094bc7395aa0ba7fe9be9a8375"|' \
       -e 's|"@foundryvtt/pdfjs": "2.14.305-1"|"@foundryvtt/pdfjs": "foundryvtt/pdfjs#2196ae9bcbd8d6a9b0b9c493d0e9f3aca13f2fd9"|' \
       -e 's|"@foundryvtt/pdfjs": "\([0-9.-]*\)"|"@foundryvtt/pdfjs": "foundryvtt/pdfjs#v\1"|' \
+      -e 's|"pixi.js": "^\([0-9.-]*\)"|"pixi.js": "~\1"|' \
       -i package.json
     npm update
     sed \
       -e 's|"@foundryvtt/pdfjs": "foundryvtt/pdfjs#d9c4a6ee44512a094bc7395aa0ba7fe9be9a8375"|"@foundryvtt/pdfjs": "2.14.305"|' \
       -e 's|"@foundryvtt/pdfjs": "foundryvtt/pdfjs#2196ae9bcbd8d6a9b0b9c493d0e9f3aca13f2fd9"|"@foundryvtt/pdfjs": "2.14.305-1"|' \
       -e 's|"@foundryvtt/pdfjs": "foundryvtt/pdfjs#v\([^"]*\)"|"@foundryvtt/pdfjs": "\1"|' \
+      -e 's|"pixi.js": "~\([0-9.-]*\)"|"pixi.js": "^\1"|' \
       -i package-lock.json
     popd
 
