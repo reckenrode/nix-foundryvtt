@@ -419,31 +419,40 @@ let
         sha512 = "A0NOZI+Glp3Xgcz6Na7i7o09+/+xm2m0UCU8gdtM2nIv6/cjLmhMZMqehSpTlgbx9omtLmV8LVqOskPEyWnmZQ==";
       };
     };
-    "@pixi/accessibility-7.3.1" = {
+    "@pixi/accessibility-7.2.4" = {
       name = "_at_pixi_slash_accessibility";
       packageName = "@pixi/accessibility";
-      version = "7.3.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@pixi/accessibility/-/accessibility-7.3.1.tgz";
-        sha512 = "7+XqUbVIRKvZQOuzQkt5vGpaDIBMorK5Sa+y9exu7nYDPCYlPdVoQeiQL7v2PtUxqkrgn28faNn8OqY8MhcqrQ==";
+        url = "https://registry.npmjs.org/@pixi/accessibility/-/accessibility-7.2.4.tgz";
+        sha512 = "EVjuqUqv9FeYFXCv0S0qj1hgCtbAMNBPCbOGEtiMogpM++/IySxBZvcOYg3rRgo9inwt2s4Bi7kUiqMPD8hItw==";
       };
     };
-    "@pixi/app-7.3.1" = {
+    "@pixi/app-7.2.4" = {
       name = "_at_pixi_slash_app";
       packageName = "@pixi/app";
-      version = "7.3.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@pixi/app/-/app-7.3.1.tgz";
-        sha512 = "pQG/IIgsQLXmB/Y+qeS6g/VBF824XiCKtypgYVtdg+hwKdVN4aVhayBtvFBmxz+abRBXUdHSUhBG80haPXEtCQ==";
+        url = "https://registry.npmjs.org/@pixi/app/-/app-7.2.4.tgz";
+        sha512 = "eJ2jpu5P28ip07nLItw6sETXn45P4KR/leMJ6zPHRlhT1m8t5zTsWr3jK4Uj8LF2E+6KlPNzLQh5Alf/unn/aQ==";
       };
     };
-    "@pixi/assets-7.3.1" = {
+    "@pixi/assets-7.2.4" = {
       name = "_at_pixi_slash_assets";
       packageName = "@pixi/assets";
-      version = "7.3.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@pixi/assets/-/assets-7.3.1.tgz";
-        sha512 = "BACPZkm5ptkqXpdHvV0tdAzsVR9t9iQROa5K4OOGkyHUZhLFcoSPFu3Vfa77rzgo3xtTK+HTw3qABibr3RBcVw==";
+        url = "https://registry.npmjs.org/@pixi/assets/-/assets-7.2.4.tgz";
+        sha512 = "7199re3wvMAlVqXLaCyAr8IkJSXqkeVAxcYyB2rBu4Id5m2hhlGX1dQsdMBiCXLwu6/LLVqDvJggSNVQBzL6ZQ==";
+      };
+    };
+    "@pixi/color-7.2.4" = {
+      name = "_at_pixi_slash_color";
+      packageName = "@pixi/color";
+      version = "7.2.4";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@pixi/color/-/color-7.2.4.tgz";
+        sha512 = "B/+9JRcXe2uE8wQfsueFRPZVayF2VEMRB7XGeRAsWCryOX19nmWhv0Nt3nOU2rvzI0niz9XgugJXsB6vVmDFSg==";
       };
     };
     "@pixi/color-7.3.1" = {
@@ -464,13 +473,22 @@ let
         sha512 = "nezytU2pw587fQstUu1AsJZDVEynjskwOL+kibwcdxsMBFqPsFFNA7xl0ii/gXuDi6M0xj3mfRJj8pBSc2jCfA==";
       };
     };
-    "@pixi/compressed-textures-7.3.1" = {
+    "@pixi/compressed-textures-7.2.4" = {
       name = "_at_pixi_slash_compressed-textures";
       packageName = "@pixi/compressed-textures";
-      version = "7.3.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@pixi/compressed-textures/-/compressed-textures-7.3.1.tgz";
-        sha512 = "1zH6vDR1+xnYaaDpno8zGkTNT/itP9J8d+dfFcKPUmzeqpm8batPkY5O7NtJ8SrQSN0UwJb+X7gFwK8LwVgKWQ==";
+        url = "https://registry.npmjs.org/@pixi/compressed-textures/-/compressed-textures-7.2.4.tgz";
+        sha512 = "atnWyw/ot/Wg69qhgskKiuTYCZx15IxV35sa0KyXMthyjyvDLCIvOn0nczM6wCBy9H96SjJbfgynVWhVrip6qw==";
+      };
+    };
+    "@pixi/constants-7.2.4" = {
+      name = "_at_pixi_slash_constants";
+      packageName = "@pixi/constants";
+      version = "7.2.4";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@pixi/constants/-/constants-7.2.4.tgz";
+        sha512 = "hKuHBWR6N4Q0Sf5MGF3/9l+POg/G5rqhueHfzofiuelnKg7aBs3BVjjZ+6hZbd6M++vOUmxYelEX/NEFBxrheA==";
       };
     };
     "@pixi/constants-7.3.1" = {
@@ -482,6 +500,15 @@ let
         sha512 = "Xq8tyUcVwpkPge9XGMZl9gzzNdNuKmjmxulJ9jNk9Zbf2QPVunn21WWZYBl4TO0mleUhT8wNnbXXn5CAbMgwFA==";
       };
     };
+    "@pixi/core-7.2.4" = {
+      name = "_at_pixi_slash_core";
+      packageName = "@pixi/core";
+      version = "7.2.4";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@pixi/core/-/core-7.2.4.tgz";
+        sha512 = "0XtvrfxHlS2T+beBBSpo7GI8+QLyyTqMVQpNmPqB4woYxzrOEJ9JaUFBaBfCvycLeUkfVih1u6HAbtF+2d1EjQ==";
+      };
+    };
     "@pixi/core-7.3.1" = {
       name = "_at_pixi_slash_core";
       packageName = "@pixi/core";
@@ -489,6 +516,15 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/@pixi/core/-/core-7.3.1.tgz";
         sha512 = "LEASg6x2wp46y2WmN227K8X3vQKU0KxflrYGgj/o573OYSpEJkmY0WMoEInTUXmhCVLOHPcnBde5YDu0JmKsjQ==";
+      };
+    };
+    "@pixi/display-7.2.4" = {
+      name = "_at_pixi_slash_display";
+      packageName = "@pixi/display";
+      version = "7.2.4";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@pixi/display/-/display-7.2.4.tgz";
+        sha512 = "w5tqb8cWEO5qIDaO9GEqRvxYhL0iMk0Wsngw23bbLm1gLEQmrFkB2tpJlRAqd7H82C3DrDDeWvkrrxW6+m4apg==";
       };
     };
     "@pixi/display-7.3.1" = {
@@ -500,13 +536,22 @@ let
         sha512 = "FzVsEuR9mmi8G+3HytrnKpcO9By04gJhNrYnMY6pLWwXE6MzuEtC7QYobtN1UIUp4Zs73O6lmdZtWOYqrdjgGw==";
       };
     };
-    "@pixi/events-7.3.1" = {
+    "@pixi/events-7.2.4" = {
       name = "_at_pixi_slash_events";
       packageName = "@pixi/events";
-      version = "7.3.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@pixi/events/-/events-7.3.1.tgz";
-        sha512 = "L6MSeFnLo3z/pQMCLGbwp5szp1+26YoZ50De2pT6hMuPGtMtio89IkFU07G1jNuiGhJsPMw4Zn9H71KiZp+X1A==";
+        url = "https://registry.npmjs.org/@pixi/events/-/events-7.2.4.tgz";
+        sha512 = "/JtmoB98fzIU8giN9xvlRvmvOi6u4MaD2DnKNOMHkQ1MBraj3pmrXM9fZ0JbNzi+324GraAAY76QidgHjIYoYQ==";
+      };
+    };
+    "@pixi/extensions-7.2.4" = {
+      name = "_at_pixi_slash_extensions";
+      packageName = "@pixi/extensions";
+      version = "7.2.4";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@pixi/extensions/-/extensions-7.2.4.tgz";
+        sha512 = "Mnqv9scbL1ARD3QFKfOWs2aSVJJfP1dL8g5UiqGImYO3rZbz/9QCzXOeMVIZ5n3iaRyKMNhFFr84/zUja2H7Dw==";
       };
     };
     "@pixi/extensions-7.3.1" = {
@@ -518,67 +563,76 @@ let
         sha512 = "KiM1uXnNQ6yjJ/8gYuqBVZxw1CPH0LRoUvnOWXrHXm74somNtJdxnEliq3zagGpyxjmiHHJmI0Y9gnXrhzVU4Q==";
       };
     };
-    "@pixi/extract-7.3.1" = {
+    "@pixi/extract-7.2.4" = {
       name = "_at_pixi_slash_extract";
       packageName = "@pixi/extract";
-      version = "7.3.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@pixi/extract/-/extract-7.3.1.tgz";
-        sha512 = "kuB2gi5JHdBK0WOvvbKZiVQkQFqRZehJlDbZaiaWcgb9G9B/8M/V+fodXS/WsmTNxOegN98igkSTpD2k1dYPnA==";
+        url = "https://registry.npmjs.org/@pixi/extract/-/extract-7.2.4.tgz";
+        sha512 = "wlXZg+J2L/1jQhRi5nZQP/cXshovhjksjss91eAKMvY5aGxNAQovCP4xotJ/XJjfTvPMpeRzHPFYzm3PrOPQ7g==";
       };
     };
-    "@pixi/filter-alpha-7.3.1" = {
+    "@pixi/filter-alpha-7.2.4" = {
       name = "_at_pixi_slash_filter-alpha";
       packageName = "@pixi/filter-alpha";
-      version = "7.3.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@pixi/filter-alpha/-/filter-alpha-7.3.1.tgz";
-        sha512 = "6vTUFnqLuPGFgG5/ODuNcmZNmsykWo/sMR4jBekeINGoVHs3Min0nQE4t/zk2xtg7UA1reI8SQzcVhBqp8g7GQ==";
+        url = "https://registry.npmjs.org/@pixi/filter-alpha/-/filter-alpha-7.2.4.tgz";
+        sha512 = "UTUMSGyktUr+I9vmigqJo9iUhb0nwGyqTTME2xBWZvVGCnl5z+/wHxvIBBCe5pNZ66IM15pGXQ4cDcfqCuP2kA==";
       };
     };
-    "@pixi/filter-blur-7.3.1" = {
+    "@pixi/filter-blur-7.2.4" = {
       name = "_at_pixi_slash_filter-blur";
       packageName = "@pixi/filter-blur";
-      version = "7.3.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@pixi/filter-blur/-/filter-blur-7.3.1.tgz";
-        sha512 = "aRK7CfKh/tnCbXS3um9LKjiQ1TOsFTPfI+OOOxcaQyZK9qs4GinnhZ2HCoq5OAcMnjMAWhvi60ssKJsP8505zw==";
+        url = "https://registry.npmjs.org/@pixi/filter-blur/-/filter-blur-7.2.4.tgz";
+        sha512 = "aLyXIoxy14bTansCPtbY8x7Sdn2OrrqkF/pcKiRXHJGGhi7wPacvB/NcmYJdnI/n2ExQ6V5Njuj/nfrsejVwcA==";
       };
     };
-    "@pixi/filter-color-matrix-7.3.1" = {
+    "@pixi/filter-color-matrix-7.2.4" = {
       name = "_at_pixi_slash_filter-color-matrix";
       packageName = "@pixi/filter-color-matrix";
-      version = "7.3.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@pixi/filter-color-matrix/-/filter-color-matrix-7.3.1.tgz";
-        sha512 = "XcVyWbk91QbTpzyIV/+nQlJxsgU3QO/rOTlota18aHB4EF8ptYyVeRgIv1YXi+UxcWRE/MpWbeUVLaJG9buELA==";
+        url = "https://registry.npmjs.org/@pixi/filter-color-matrix/-/filter-color-matrix-7.2.4.tgz";
+        sha512 = "DFtayybYXoUh73eHUFRK5REbi1t3FZuVUnaQTj+euHKF9L7EaYc3Q9wctpx1WPRcwkqEX50M4SNFhxpA7Pxtaw==";
       };
     };
-    "@pixi/filter-displacement-7.3.1" = {
+    "@pixi/filter-displacement-7.2.4" = {
       name = "_at_pixi_slash_filter-displacement";
       packageName = "@pixi/filter-displacement";
-      version = "7.3.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@pixi/filter-displacement/-/filter-displacement-7.3.1.tgz";
-        sha512 = "XrjBJcWvNxy/LlNZU6vLghUzG9kqMAM6xAIOzFm7CPwr+3Av32fyBp2l6FUYgoZMgb+4+Rxv8mPnUyX4gFMqLw==";
+        url = "https://registry.npmjs.org/@pixi/filter-displacement/-/filter-displacement-7.2.4.tgz";
+        sha512 = "Simq3IBJKt7+Gvk4kK7OFkfoeYUMhNhIyATCdeT+Jkdkq5WV7pYnH5hqO0YW7eAHrgjV13yn6t4H/GC4+6LhEA==";
       };
     };
-    "@pixi/filter-fxaa-7.3.1" = {
+    "@pixi/filter-fxaa-7.2.4" = {
       name = "_at_pixi_slash_filter-fxaa";
       packageName = "@pixi/filter-fxaa";
-      version = "7.3.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@pixi/filter-fxaa/-/filter-fxaa-7.3.1.tgz";
-        sha512 = "ZL3kjIkMm29+G8AOuxDDo2VrqeJEBw6zloDDerUq71NRsyIUWJEdscdiVUDytL1/JqZwxdHEvzDNG6IF3P1VFg==";
+        url = "https://registry.npmjs.org/@pixi/filter-fxaa/-/filter-fxaa-7.2.4.tgz";
+        sha512 = "qzKjdL+Ih18uGTJLg8tT/H+YCsTeGkw2uF7lyKnw/lxGLJQhLWIhM95M9qSNgxbXyW1vp7SbG81a9aAEz2HAhA==";
       };
     };
-    "@pixi/filter-noise-7.3.1" = {
+    "@pixi/filter-noise-7.2.4" = {
       name = "_at_pixi_slash_filter-noise";
       packageName = "@pixi/filter-noise";
-      version = "7.3.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@pixi/filter-noise/-/filter-noise-7.3.1.tgz";
-        sha512 = "eORqa7Rn3OxZlrrF4J59VPHHgiHe+cukPQ2Wp24Q0XuYoBZrnPow5SDDwtwIfCXQg68LPdiSpKdwkLJxsew8aw==";
+        url = "https://registry.npmjs.org/@pixi/filter-noise/-/filter-noise-7.2.4.tgz";
+        sha512 = "QAU9Ybj2ZQrWM9ZEjTTC0iLnQcuyNoZNRinxSbg1G0yacpmsSb9wvV5ltIZ66+hfY+90+u2Nudt/v9g6pvOdGg==";
+      };
+    };
+    "@pixi/graphics-7.2.4" = {
+      name = "_at_pixi_slash_graphics";
+      packageName = "@pixi/graphics";
+      version = "7.2.4";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@pixi/graphics/-/graphics-7.2.4.tgz";
+        sha512 = "3A2EumTjWJgXlDLOyuBrl9b6v1Za/E+/IjOGUIX843HH4NYaf1a2sfDfljx6r3oiDvy+VhuBFmgynRcV5IyA0Q==";
       };
     };
     "@pixi/graphics-7.3.1" = {
@@ -599,6 +653,15 @@ let
         sha512 = "jU6zFb+I3me6Z28qz7QOKPPBBUu1fafrlXSHBAidZZNl/PAr6mwygBZ+cFHrA2JHscUPRY60+H2EzJ+aiOHm7A==";
       };
     };
+    "@pixi/math-7.2.4" = {
+      name = "_at_pixi_slash_math";
+      packageName = "@pixi/math";
+      version = "7.2.4";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@pixi/math/-/math-7.2.4.tgz";
+        sha512 = "LJB+mozyEPllxa0EssFZrKNfVwysfaBun4b2dJKQQInp0DafgbA0j7A+WVg0oe51KhFULTJMpDqbLn/ITFc41A==";
+      };
+    };
     "@pixi/math-7.3.1" = {
       name = "_at_pixi_slash_math";
       packageName = "@pixi/math";
@@ -608,58 +671,58 @@ let
         sha512 = "kRTpac/3frRPMf8YRai3+2bFldgE7SwzGsLYjb4//QdeuY0WVaeSPJJKEVXZ/aBK/JgGO7Np75kwr7/2+qegSg==";
       };
     };
-    "@pixi/mesh-7.3.1" = {
+    "@pixi/mesh-7.2.4" = {
       name = "_at_pixi_slash_mesh";
       packageName = "@pixi/mesh";
-      version = "7.3.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@pixi/mesh/-/mesh-7.3.1.tgz";
-        sha512 = "22b2++/UWURee2R++1PaY/zTh4UaN/ASg4DHcELI9OgM5qrxfnk3MrpdWTNyJPYWUTLlP8XYPGiwIbVPiiUNmA==";
+        url = "https://registry.npmjs.org/@pixi/mesh/-/mesh-7.2.4.tgz";
+        sha512 = "wiALIqcRKib2BqeH9kOA5fOKWN352nqAspgbDa8gA7OyWzmNwqIedIlElixd0oLFOrIN5jOZAdzeKnoYQlt9Aw==";
       };
     };
-    "@pixi/mesh-extras-7.3.1" = {
+    "@pixi/mesh-extras-7.2.4" = {
       name = "_at_pixi_slash_mesh-extras";
       packageName = "@pixi/mesh-extras";
-      version = "7.3.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@pixi/mesh-extras/-/mesh-extras-7.3.1.tgz";
-        sha512 = "xmK6c/cM5iDFqrg7NEjSH9i4Ieqsy9A9MWAFoIoPTph6HhCTZWNnRn6sdgLR9+6z5b8AmXujwarMBqdM7fXtvQ==";
+        url = "https://registry.npmjs.org/@pixi/mesh-extras/-/mesh-extras-7.2.4.tgz";
+        sha512 = "Lxqq/1E2EmDgjZX8KzjhBy3VvITIQ00arr2ikyHYF1d0XtQTKEYpr8VKzhchqZ5/9DuyTDbDMYGhcxoNXQmZrQ==";
       };
     };
-    "@pixi/mixin-cache-as-bitmap-7.3.1" = {
+    "@pixi/mixin-cache-as-bitmap-7.2.4" = {
       name = "_at_pixi_slash_mixin-cache-as-bitmap";
       packageName = "@pixi/mixin-cache-as-bitmap";
-      version = "7.3.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@pixi/mixin-cache-as-bitmap/-/mixin-cache-as-bitmap-7.3.1.tgz";
-        sha512 = "4GNr8qq0ZFqSVnIsfqlNI5cnCz1qL9kLhq+/SRf3JmPcwYolnS015HP5zhnG2nKU6pgeCz5KpQfxOYPytOlcKw==";
+        url = "https://registry.npmjs.org/@pixi/mixin-cache-as-bitmap/-/mixin-cache-as-bitmap-7.2.4.tgz";
+        sha512 = "95L/9nzfLHw6GoeqqRl/RjSloKvRt0xrc2inCmjMZvMsFUEtHN2F8IWd1k5vcv0S+83NCreFkJg6nJm1m5AZqg==";
       };
     };
-    "@pixi/mixin-get-child-by-name-7.3.1" = {
+    "@pixi/mixin-get-child-by-name-7.2.4" = {
       name = "_at_pixi_slash_mixin-get-child-by-name";
       packageName = "@pixi/mixin-get-child-by-name";
-      version = "7.3.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@pixi/mixin-get-child-by-name/-/mixin-get-child-by-name-7.3.1.tgz";
-        sha512 = "+2tArxvfjmbWW+/8sfn+qCtNy2kUCa1xPhyGjfgLwPBAOAghpmIXWa5YXXVVdUgE2+qw3aL5OyR2n/DL1Y5/6A==";
+        url = "https://registry.npmjs.org/@pixi/mixin-get-child-by-name/-/mixin-get-child-by-name-7.2.4.tgz";
+        sha512 = "9g17KgSBEEhkinnKk4dqmxagzHOCPSTvGB6lOopBq4yyXmr/2WVv+QGjuzE0O+p80szQeBJjPBQxzrfBILaSRw==";
       };
     };
-    "@pixi/mixin-get-global-position-7.3.1" = {
+    "@pixi/mixin-get-global-position-7.2.4" = {
       name = "_at_pixi_slash_mixin-get-global-position";
       packageName = "@pixi/mixin-get-global-position";
-      version = "7.3.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@pixi/mixin-get-global-position/-/mixin-get-global-position-7.3.1.tgz";
-        sha512 = "WcPxxj73u/c2AXaCd8umi9xipMllOg3Cl3LJ08Dx/EA0Ce1TNg6aTr+Apu696IZ5BiXcyyelSMaPnxu6cSdCcg==";
+        url = "https://registry.npmjs.org/@pixi/mixin-get-global-position/-/mixin-get-global-position-7.2.4.tgz";
+        sha512 = "UrAUF2BXCeWtFgR2m+er41Ky7zShT7r228cZkB6ZfYwMeThhwqG5mH68UeCyP6p68JMpT1gjI2DPfeSRY3ecnA==";
       };
     };
-    "@pixi/particle-container-7.3.1" = {
+    "@pixi/particle-container-7.2.4" = {
       name = "_at_pixi_slash_particle-container";
       packageName = "@pixi/particle-container";
-      version = "7.3.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@pixi/particle-container/-/particle-container-7.3.1.tgz";
-        sha512 = "NNJph+0eZwqdrPTaxOTv7KhVjvBRi5Edrduv8orDKYcF47gOvlCzzQbKR1hvXDMkzWou18eQwO/OH/NIgQBgFA==";
+        url = "https://registry.npmjs.org/@pixi/particle-container/-/particle-container-7.2.4.tgz";
+        sha512 = "tpSzilZGFtAoi8XhzL0TecLPNRQAbY8nWV9XNGXJDw+nxXp18GCe8L6eEmnHLlAug67BRHl65DtrdvTknPX+4g==";
       };
     };
     "@pixi/particle-emitter-5.0.8" = {
@@ -671,13 +734,22 @@ let
         sha512 = "OzuZ4+esQo+zJ0u3htuNHHMAE8Ixmr3nz3tEfrTGZHje1vnGyie3ANQj9F0V4OM47oi9jd70njVCmeb7bTkS9A==";
       };
     };
-    "@pixi/prepare-7.3.1" = {
+    "@pixi/prepare-7.2.4" = {
       name = "_at_pixi_slash_prepare";
       packageName = "@pixi/prepare";
-      version = "7.3.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@pixi/prepare/-/prepare-7.3.1.tgz";
-        sha512 = "8dCgtUWcOotD+Y649luzOUiReoSwc2WbT1DQcq9w47BvnbDrBzZQ5KxsIUqHXW70IcT+hShqHxt6KZavCHqdMQ==";
+        url = "https://registry.npmjs.org/@pixi/prepare/-/prepare-7.2.4.tgz";
+        sha512 = "Yff5Sh4kTLdKc5VkkM44LW9gpj7Izw8ns3P1TzWxqeGjzPZ3folr/tQujGL+Qw+8A9VESp+hX9MSIHyw+jpyrg==";
+      };
+    };
+    "@pixi/runner-7.2.4" = {
+      name = "_at_pixi_slash_runner";
+      packageName = "@pixi/runner";
+      version = "7.2.4";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@pixi/runner/-/runner-7.2.4.tgz";
+        sha512 = "YtyqPk1LA+0guEFKSFx6t/YSvbEQwajFwi4Ft8iDhioa6VK2MmTir1GjWwy7JQYLcDmYSAcQjnmFtVTZohyYSw==";
       };
     };
     "@pixi/runner-7.3.1" = {
@@ -689,6 +761,15 @@ let
         sha512 = "N0mQCSwX9jmG63ALy85b0fLXXFu8XS9jUnzhz7T6cA3gGtAtVHBhc5Vh5ZJfFB/FhCQmeTg48PEL6t2Ea3Ogjg==";
       };
     };
+    "@pixi/settings-7.2.4" = {
+      name = "_at_pixi_slash_settings";
+      packageName = "@pixi/settings";
+      version = "7.2.4";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@pixi/settings/-/settings-7.2.4.tgz";
+        sha512 = "ZPKRar9EwibijGmH8EViu4Greq1I/O7V/xQx2rNqN23XA7g09Qo6yfaeQpufu5xl8+/lZrjuHtQSnuY7OgG1CA==";
+      };
+    };
     "@pixi/settings-7.3.1" = {
       name = "_at_pixi_slash_settings";
       packageName = "@pixi/settings";
@@ -696,6 +777,15 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/@pixi/settings/-/settings-7.3.1.tgz";
         sha512 = "bC2MdSW7Jg1vT4tUy0zvlottuylGhsHfuy22ZEvQHiwk9dy0y8gC7H98my8bMjnUQNWFpfamhmVGxoMM/K95FQ==";
+      };
+    };
+    "@pixi/sprite-7.2.4" = {
+      name = "_at_pixi_slash_sprite";
+      packageName = "@pixi/sprite";
+      version = "7.2.4";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@pixi/sprite/-/sprite-7.2.4.tgz";
+        sha512 = "DhR1B+/d0eXpxHIesJMXcVPrKFwQ+zRA1LvEIFfzewqfaRN3X6PMIuoKX8SIb6tl+Hq8Ba9Pe28zI7d2rmRzrA==";
       };
     };
     "@pixi/sprite-7.3.1" = {
@@ -707,58 +797,67 @@ let
         sha512 = "hSyrzcrNpGiDwc5BVnCfCMkA2Ikx+RBIXyi/Q9K6L0I2gZR8iHUWiQUJKC4jnhDVvvVcQADqiAyIBslXYQLLDw==";
       };
     };
-    "@pixi/sprite-animated-7.3.1" = {
+    "@pixi/sprite-animated-7.2.4" = {
       name = "_at_pixi_slash_sprite-animated";
       packageName = "@pixi/sprite-animated";
-      version = "7.3.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@pixi/sprite-animated/-/sprite-animated-7.3.1.tgz";
-        sha512 = "adAs9ZRss6ioaGqmSYvjR2b+rfaC+hPwqNGyA1TwqKmgxS5c5pSPMWgiNYRRKPS7qss5T0KOWjfcHxdBHM62mg==";
+        url = "https://registry.npmjs.org/@pixi/sprite-animated/-/sprite-animated-7.2.4.tgz";
+        sha512 = "9eRriPSC0QVS7U9zQlrG3uEI5+h3fi+mqofXy+yjk1sGCmXSIJME5p2wg2mzxoJk3qkSMagQA9QHtL26Fti8Iw==";
       };
     };
-    "@pixi/sprite-tiling-7.3.1" = {
+    "@pixi/sprite-tiling-7.2.4" = {
       name = "_at_pixi_slash_sprite-tiling";
       packageName = "@pixi/sprite-tiling";
-      version = "7.3.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@pixi/sprite-tiling/-/sprite-tiling-7.3.1.tgz";
-        sha512 = "/A739b3TNncoAOqrJcy8wKa2O/aa17luAvMUrYOO3ZLsj0lqIj3lMCjNqlBsfftctAwQlmc6dM8radyeyzIsNQ==";
+        url = "https://registry.npmjs.org/@pixi/sprite-tiling/-/sprite-tiling-7.2.4.tgz";
+        sha512 = "nGfxQoACRx49dUN0oW1vFm3141M+7gkAbzoNJym2Pljd2dpLME9fb5E6Lyahu0yWMaPRhhGorn6z9VIGmTF3Jw==";
       };
     };
-    "@pixi/spritesheet-7.3.1" = {
+    "@pixi/spritesheet-7.2.4" = {
       name = "_at_pixi_slash_spritesheet";
       packageName = "@pixi/spritesheet";
-      version = "7.3.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@pixi/spritesheet/-/spritesheet-7.3.1.tgz";
-        sha512 = "wsCTmUnQSUp+BMrDcGERzvqdoRImNqUNXV2mj+HZyfN2ZN/kyqCxwdWhq2TrbZiAOW6PsASn8516Cei7ECJp7w==";
+        url = "https://registry.npmjs.org/@pixi/spritesheet/-/spritesheet-7.2.4.tgz";
+        sha512 = "LNmlavyiMQeCF0U4S+yhzxUYmPmat6EpLjLnkGukQTZV5CZkxDCVgXM9uKoRF2DvNydj4yuwZ6+JjK8QssHI8Q==";
       };
     };
-    "@pixi/text-7.3.1" = {
+    "@pixi/text-7.2.4" = {
       name = "_at_pixi_slash_text";
       packageName = "@pixi/text";
-      version = "7.3.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@pixi/text/-/text-7.3.1.tgz";
-        sha512 = "73KB83+fZSww2LXXofJHLgOuNwk/8h0hir5shL8vdae8bgupv4VAw9wOG15WeSZdXoa7fU1owWyDM3RWLTmv+Q==";
+        url = "https://registry.npmjs.org/@pixi/text/-/text-7.2.4.tgz";
+        sha512 = "DGu7ktpe+zHhqR2sG9NsJt4mgvSObv5EqXTtUxD4Z0li1gmqF7uktpLyn5I6vSg1TTEL4TECClRDClVDGiykWw==";
       };
     };
-    "@pixi/text-bitmap-7.3.1" = {
+    "@pixi/text-bitmap-7.2.4" = {
       name = "_at_pixi_slash_text-bitmap";
       packageName = "@pixi/text-bitmap";
-      version = "7.3.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@pixi/text-bitmap/-/text-bitmap-7.3.1.tgz";
-        sha512 = "sc/eoV/OOJh81/GKqIXfuUexQ0EbP2ggPvGQghaC/VyUbOAwlSMUmNmXlY68KzPX9JasIDCFyv07Utnkmona7g==";
+        url = "https://registry.npmjs.org/@pixi/text-bitmap/-/text-bitmap-7.2.4.tgz";
+        sha512 = "3u2CP4VN+muCaq/jtj7gn0hb3DET/X2S04zTBcgc2WVGufJc62yz+UDzS9jC+ellotVdt9c8U74++vpz3zJGfw==";
       };
     };
-    "@pixi/text-html-7.3.1" = {
+    "@pixi/text-html-7.2.4" = {
       name = "_at_pixi_slash_text-html";
       packageName = "@pixi/text-html";
-      version = "7.3.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@pixi/text-html/-/text-html-7.3.1.tgz";
-        sha512 = "Yo96c/fM7eSUdovZInTl/LkI44y2s2vfdkpnPjHU6ohIFJ4cAf4ok2CjBpAMExvJG8f4lvTkDRqECuRUD0DUnA==";
+        url = "https://registry.npmjs.org/@pixi/text-html/-/text-html-7.2.4.tgz";
+        sha512 = "0NfLAE/w51ZtatxVqLvDS62iO0VLKsSdctqTAVv4Zlgdk9TKJmX1WUucHJboTvbm2SbDjNDGfZ6qXM5nAslIDQ==";
+      };
+    };
+    "@pixi/ticker-7.2.4" = {
+      name = "_at_pixi_slash_ticker";
+      packageName = "@pixi/ticker";
+      version = "7.2.4";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@pixi/ticker/-/ticker-7.2.4.tgz";
+        sha512 = "hQQHIHvGeFsP4GNezZqjzuhUgNQEVgCH9+qU05UX1Mc5UHC9l6OJnY4VTVhhcHxZjA6RnyaY+1zBxCnoXuazpg==";
       };
     };
     "@pixi/ticker-7.3.1" = {
@@ -768,6 +867,15 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/@pixi/ticker/-/ticker-7.3.1.tgz";
         sha512 = "S4ur5MQgVM0yTeJVALbRA3WkX/df/6DG6XXVoR9JaFOQ3zgXhh05O+0NFFebj4b3Ls3/y5aG6aOkkoBl1AXrCw==";
+      };
+    };
+    "@pixi/utils-7.2.4" = {
+      name = "_at_pixi_slash_utils";
+      packageName = "@pixi/utils";
+      version = "7.2.4";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@pixi/utils/-/utils-7.2.4.tgz";
+        sha512 = "VUGQHBOINIS4ePzoqafwxaGPVRTa3oM/mEutIIHbNGI3b+QvSO+1Dnk40M0zcH6Bo+MxQZbOZK5X/wO9oU5+LQ==";
       };
     };
     "@pixi/utils-7.3.1" = {
@@ -1731,6 +1839,15 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/color-string/-/color-string-1.9.1.tgz";
         sha512 = "shrVawQFojnZv6xM40anx4CkoDP+fZsw/ZerEMsW/pyzsRbElpsL/DBVW7q3ExxwusdNXI3lXpuhEZkzs8p5Eg==";
+      };
+    };
+    "colord-2.9.3" = {
+      name = "colord";
+      packageName = "colord";
+      version = "2.9.3";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/colord/-/colord-2.9.3.tgz";
+        sha512 = "jeC1axXpnb0/2nn/Y1LPuLdgXBLH7aDcHu4KEKfqw3CUhX7ZpfBSlPKyqXE6btIgEzfWtrX3/tyBCaCvXvMkOw==";
       };
     };
     "colorspace-1.1.4" = {
@@ -3416,13 +3533,13 @@ let
         sha512 = "JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==";
       };
     };
-    "pixi.js-7.3.1" = {
+    "pixi.js-7.2.4" = {
       name = "pixi.js";
       packageName = "pixi.js";
-      version = "7.3.1";
+      version = "7.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/pixi.js/-/pixi.js-7.3.1.tgz";
-        sha512 = "BFuEOsNimxjLq/Bo16JiXBr/EKXp13z/NXdyMasRcZumCHDUdrKvTEFaUfrkFat6ZghgrWyHnREzK3b+F6OX0Q==";
+        url = "https://registry.npmjs.org/pixi.js/-/pixi.js-7.2.4.tgz";
+        sha512 = "nBH60meoLnHxoMFz17HoMxXS4uJpG5jwIdL+Gx2S11TzWgP3iKF+/WLOTrkSdyuQoQSdIBxVqpnYii0Wiox15A==";
       };
     };
     "postcss-8.4.30" = {
@@ -4509,44 +4626,366 @@ let
       sources."@dabh/diagnostics-2.0.3"
       sources."@foundryvtt/pdfjs-git+https://github.com/foundryvtt/pdfjs.git#d5a3072cd65faf5e5261de1de75ec7d7dab1a778"
       sources."@httptoolkit/websocket-stream-6.0.1"
-      sources."@pixi/accessibility-7.3.1"
-      sources."@pixi/app-7.3.1"
-      sources."@pixi/assets-7.3.1"
+      (sources."@pixi/accessibility-7.2.4" // {
+        dependencies = [
+          sources."@pixi/color-7.2.4"
+          sources."@pixi/constants-7.2.4"
+          sources."@pixi/core-7.2.4"
+          sources."@pixi/display-7.2.4"
+          sources."@pixi/extensions-7.2.4"
+          sources."@pixi/math-7.2.4"
+          sources."@pixi/runner-7.2.4"
+          sources."@pixi/settings-7.2.4"
+          sources."@pixi/ticker-7.2.4"
+          sources."@pixi/utils-7.2.4"
+        ];
+      })
+      (sources."@pixi/app-7.2.4" // {
+        dependencies = [
+          sources."@pixi/color-7.2.4"
+          sources."@pixi/constants-7.2.4"
+          sources."@pixi/core-7.2.4"
+          sources."@pixi/display-7.2.4"
+          sources."@pixi/extensions-7.2.4"
+          sources."@pixi/math-7.2.4"
+          sources."@pixi/runner-7.2.4"
+          sources."@pixi/settings-7.2.4"
+          sources."@pixi/ticker-7.2.4"
+          sources."@pixi/utils-7.2.4"
+        ];
+      })
+      (sources."@pixi/assets-7.2.4" // {
+        dependencies = [
+          sources."@pixi/color-7.2.4"
+          sources."@pixi/constants-7.2.4"
+          sources."@pixi/core-7.2.4"
+          sources."@pixi/extensions-7.2.4"
+          sources."@pixi/math-7.2.4"
+          sources."@pixi/runner-7.2.4"
+          sources."@pixi/settings-7.2.4"
+          sources."@pixi/ticker-7.2.4"
+          sources."@pixi/utils-7.2.4"
+        ];
+      })
       sources."@pixi/color-7.3.1"
       sources."@pixi/colord-2.9.6"
-      sources."@pixi/compressed-textures-7.3.1"
+      (sources."@pixi/compressed-textures-7.2.4" // {
+        dependencies = [
+          sources."@pixi/color-7.2.4"
+          sources."@pixi/constants-7.2.4"
+          sources."@pixi/core-7.2.4"
+          sources."@pixi/extensions-7.2.4"
+          sources."@pixi/math-7.2.4"
+          sources."@pixi/runner-7.2.4"
+          sources."@pixi/settings-7.2.4"
+          sources."@pixi/ticker-7.2.4"
+          sources."@pixi/utils-7.2.4"
+        ];
+      })
       sources."@pixi/constants-7.3.1"
       sources."@pixi/core-7.3.1"
       sources."@pixi/display-7.3.1"
-      sources."@pixi/events-7.3.1"
+      (sources."@pixi/events-7.2.4" // {
+        dependencies = [
+          sources."@pixi/color-7.2.4"
+          sources."@pixi/constants-7.2.4"
+          sources."@pixi/core-7.2.4"
+          sources."@pixi/display-7.2.4"
+          sources."@pixi/extensions-7.2.4"
+          sources."@pixi/math-7.2.4"
+          sources."@pixi/runner-7.2.4"
+          sources."@pixi/settings-7.2.4"
+          sources."@pixi/ticker-7.2.4"
+          sources."@pixi/utils-7.2.4"
+        ];
+      })
       sources."@pixi/extensions-7.3.1"
-      sources."@pixi/extract-7.3.1"
-      sources."@pixi/filter-alpha-7.3.1"
-      sources."@pixi/filter-blur-7.3.1"
-      sources."@pixi/filter-color-matrix-7.3.1"
-      sources."@pixi/filter-displacement-7.3.1"
-      sources."@pixi/filter-fxaa-7.3.1"
-      sources."@pixi/filter-noise-7.3.1"
+      (sources."@pixi/extract-7.2.4" // {
+        dependencies = [
+          sources."@pixi/color-7.2.4"
+          sources."@pixi/constants-7.2.4"
+          sources."@pixi/core-7.2.4"
+          sources."@pixi/extensions-7.2.4"
+          sources."@pixi/math-7.2.4"
+          sources."@pixi/runner-7.2.4"
+          sources."@pixi/settings-7.2.4"
+          sources."@pixi/ticker-7.2.4"
+          sources."@pixi/utils-7.2.4"
+        ];
+      })
+      (sources."@pixi/filter-alpha-7.2.4" // {
+        dependencies = [
+          sources."@pixi/color-7.2.4"
+          sources."@pixi/constants-7.2.4"
+          sources."@pixi/core-7.2.4"
+          sources."@pixi/extensions-7.2.4"
+          sources."@pixi/math-7.2.4"
+          sources."@pixi/runner-7.2.4"
+          sources."@pixi/settings-7.2.4"
+          sources."@pixi/ticker-7.2.4"
+          sources."@pixi/utils-7.2.4"
+        ];
+      })
+      (sources."@pixi/filter-blur-7.2.4" // {
+        dependencies = [
+          sources."@pixi/color-7.2.4"
+          sources."@pixi/constants-7.2.4"
+          sources."@pixi/core-7.2.4"
+          sources."@pixi/extensions-7.2.4"
+          sources."@pixi/math-7.2.4"
+          sources."@pixi/runner-7.2.4"
+          sources."@pixi/settings-7.2.4"
+          sources."@pixi/ticker-7.2.4"
+          sources."@pixi/utils-7.2.4"
+        ];
+      })
+      (sources."@pixi/filter-color-matrix-7.2.4" // {
+        dependencies = [
+          sources."@pixi/color-7.2.4"
+          sources."@pixi/constants-7.2.4"
+          sources."@pixi/core-7.2.4"
+          sources."@pixi/extensions-7.2.4"
+          sources."@pixi/math-7.2.4"
+          sources."@pixi/runner-7.2.4"
+          sources."@pixi/settings-7.2.4"
+          sources."@pixi/ticker-7.2.4"
+          sources."@pixi/utils-7.2.4"
+        ];
+      })
+      (sources."@pixi/filter-displacement-7.2.4" // {
+        dependencies = [
+          sources."@pixi/color-7.2.4"
+          sources."@pixi/constants-7.2.4"
+          sources."@pixi/core-7.2.4"
+          sources."@pixi/extensions-7.2.4"
+          sources."@pixi/math-7.2.4"
+          sources."@pixi/runner-7.2.4"
+          sources."@pixi/settings-7.2.4"
+          sources."@pixi/ticker-7.2.4"
+          sources."@pixi/utils-7.2.4"
+        ];
+      })
+      (sources."@pixi/filter-fxaa-7.2.4" // {
+        dependencies = [
+          sources."@pixi/color-7.2.4"
+          sources."@pixi/constants-7.2.4"
+          sources."@pixi/core-7.2.4"
+          sources."@pixi/extensions-7.2.4"
+          sources."@pixi/math-7.2.4"
+          sources."@pixi/runner-7.2.4"
+          sources."@pixi/settings-7.2.4"
+          sources."@pixi/ticker-7.2.4"
+          sources."@pixi/utils-7.2.4"
+        ];
+      })
+      (sources."@pixi/filter-noise-7.2.4" // {
+        dependencies = [
+          sources."@pixi/color-7.2.4"
+          sources."@pixi/constants-7.2.4"
+          sources."@pixi/core-7.2.4"
+          sources."@pixi/extensions-7.2.4"
+          sources."@pixi/math-7.2.4"
+          sources."@pixi/runner-7.2.4"
+          sources."@pixi/settings-7.2.4"
+          sources."@pixi/ticker-7.2.4"
+          sources."@pixi/utils-7.2.4"
+        ];
+      })
       sources."@pixi/graphics-7.3.1"
       sources."@pixi/graphics-smooth-1.1.0"
       sources."@pixi/math-7.3.1"
-      sources."@pixi/mesh-7.3.1"
-      sources."@pixi/mesh-extras-7.3.1"
-      sources."@pixi/mixin-cache-as-bitmap-7.3.1"
-      sources."@pixi/mixin-get-child-by-name-7.3.1"
-      sources."@pixi/mixin-get-global-position-7.3.1"
-      sources."@pixi/particle-container-7.3.1"
+      (sources."@pixi/mesh-7.2.4" // {
+        dependencies = [
+          sources."@pixi/color-7.2.4"
+          sources."@pixi/constants-7.2.4"
+          sources."@pixi/core-7.2.4"
+          sources."@pixi/display-7.2.4"
+          sources."@pixi/extensions-7.2.4"
+          sources."@pixi/math-7.2.4"
+          sources."@pixi/runner-7.2.4"
+          sources."@pixi/settings-7.2.4"
+          sources."@pixi/ticker-7.2.4"
+          sources."@pixi/utils-7.2.4"
+        ];
+      })
+      (sources."@pixi/mesh-extras-7.2.4" // {
+        dependencies = [
+          sources."@pixi/color-7.2.4"
+          sources."@pixi/constants-7.2.4"
+          sources."@pixi/core-7.2.4"
+          sources."@pixi/extensions-7.2.4"
+          sources."@pixi/math-7.2.4"
+          sources."@pixi/runner-7.2.4"
+          sources."@pixi/settings-7.2.4"
+          sources."@pixi/ticker-7.2.4"
+          sources."@pixi/utils-7.2.4"
+        ];
+      })
+      (sources."@pixi/mixin-cache-as-bitmap-7.2.4" // {
+        dependencies = [
+          sources."@pixi/color-7.2.4"
+          sources."@pixi/constants-7.2.4"
+          sources."@pixi/core-7.2.4"
+          sources."@pixi/display-7.2.4"
+          sources."@pixi/extensions-7.2.4"
+          sources."@pixi/math-7.2.4"
+          sources."@pixi/runner-7.2.4"
+          sources."@pixi/settings-7.2.4"
+          sources."@pixi/sprite-7.2.4"
+          sources."@pixi/ticker-7.2.4"
+          sources."@pixi/utils-7.2.4"
+        ];
+      })
+      (sources."@pixi/mixin-get-child-by-name-7.2.4" // {
+        dependencies = [
+          sources."@pixi/color-7.2.4"
+          sources."@pixi/constants-7.2.4"
+          sources."@pixi/core-7.2.4"
+          sources."@pixi/display-7.2.4"
+          sources."@pixi/extensions-7.2.4"
+          sources."@pixi/math-7.2.4"
+          sources."@pixi/runner-7.2.4"
+          sources."@pixi/settings-7.2.4"
+          sources."@pixi/ticker-7.2.4"
+          sources."@pixi/utils-7.2.4"
+        ];
+      })
+      (sources."@pixi/mixin-get-global-position-7.2.4" // {
+        dependencies = [
+          sources."@pixi/color-7.2.4"
+          sources."@pixi/constants-7.2.4"
+          sources."@pixi/core-7.2.4"
+          sources."@pixi/display-7.2.4"
+          sources."@pixi/extensions-7.2.4"
+          sources."@pixi/math-7.2.4"
+          sources."@pixi/runner-7.2.4"
+          sources."@pixi/settings-7.2.4"
+          sources."@pixi/ticker-7.2.4"
+          sources."@pixi/utils-7.2.4"
+        ];
+      })
+      (sources."@pixi/particle-container-7.2.4" // {
+        dependencies = [
+          sources."@pixi/color-7.2.4"
+          sources."@pixi/constants-7.2.4"
+          sources."@pixi/core-7.2.4"
+          sources."@pixi/display-7.2.4"
+          sources."@pixi/extensions-7.2.4"
+          sources."@pixi/math-7.2.4"
+          sources."@pixi/runner-7.2.4"
+          sources."@pixi/settings-7.2.4"
+          sources."@pixi/sprite-7.2.4"
+          sources."@pixi/ticker-7.2.4"
+          sources."@pixi/utils-7.2.4"
+        ];
+      })
       sources."@pixi/particle-emitter-5.0.8"
-      sources."@pixi/prepare-7.3.1"
+      (sources."@pixi/prepare-7.2.4" // {
+        dependencies = [
+          sources."@pixi/color-7.2.4"
+          sources."@pixi/constants-7.2.4"
+          sources."@pixi/core-7.2.4"
+          sources."@pixi/display-7.2.4"
+          sources."@pixi/extensions-7.2.4"
+          sources."@pixi/graphics-7.2.4"
+          sources."@pixi/math-7.2.4"
+          sources."@pixi/runner-7.2.4"
+          sources."@pixi/settings-7.2.4"
+          sources."@pixi/sprite-7.2.4"
+          sources."@pixi/ticker-7.2.4"
+          sources."@pixi/utils-7.2.4"
+        ];
+      })
       sources."@pixi/runner-7.3.1"
       sources."@pixi/settings-7.3.1"
       sources."@pixi/sprite-7.3.1"
-      sources."@pixi/sprite-animated-7.3.1"
-      sources."@pixi/sprite-tiling-7.3.1"
-      sources."@pixi/spritesheet-7.3.1"
-      sources."@pixi/text-7.3.1"
-      sources."@pixi/text-bitmap-7.3.1"
-      sources."@pixi/text-html-7.3.1"
+      (sources."@pixi/sprite-animated-7.2.4" // {
+        dependencies = [
+          sources."@pixi/color-7.2.4"
+          sources."@pixi/constants-7.2.4"
+          sources."@pixi/core-7.2.4"
+          sources."@pixi/display-7.2.4"
+          sources."@pixi/extensions-7.2.4"
+          sources."@pixi/math-7.2.4"
+          sources."@pixi/runner-7.2.4"
+          sources."@pixi/settings-7.2.4"
+          sources."@pixi/sprite-7.2.4"
+          sources."@pixi/ticker-7.2.4"
+          sources."@pixi/utils-7.2.4"
+        ];
+      })
+      (sources."@pixi/sprite-tiling-7.2.4" // {
+        dependencies = [
+          sources."@pixi/color-7.2.4"
+          sources."@pixi/constants-7.2.4"
+          sources."@pixi/core-7.2.4"
+          sources."@pixi/display-7.2.4"
+          sources."@pixi/extensions-7.2.4"
+          sources."@pixi/math-7.2.4"
+          sources."@pixi/runner-7.2.4"
+          sources."@pixi/settings-7.2.4"
+          sources."@pixi/sprite-7.2.4"
+          sources."@pixi/ticker-7.2.4"
+          sources."@pixi/utils-7.2.4"
+        ];
+      })
+      (sources."@pixi/spritesheet-7.2.4" // {
+        dependencies = [
+          sources."@pixi/color-7.2.4"
+          sources."@pixi/constants-7.2.4"
+          sources."@pixi/core-7.2.4"
+          sources."@pixi/extensions-7.2.4"
+          sources."@pixi/math-7.2.4"
+          sources."@pixi/runner-7.2.4"
+          sources."@pixi/settings-7.2.4"
+          sources."@pixi/ticker-7.2.4"
+          sources."@pixi/utils-7.2.4"
+        ];
+      })
+      (sources."@pixi/text-7.2.4" // {
+        dependencies = [
+          sources."@pixi/color-7.2.4"
+          sources."@pixi/constants-7.2.4"
+          sources."@pixi/core-7.2.4"
+          sources."@pixi/display-7.2.4"
+          sources."@pixi/extensions-7.2.4"
+          sources."@pixi/math-7.2.4"
+          sources."@pixi/runner-7.2.4"
+          sources."@pixi/settings-7.2.4"
+          sources."@pixi/sprite-7.2.4"
+          sources."@pixi/ticker-7.2.4"
+          sources."@pixi/utils-7.2.4"
+        ];
+      })
+      (sources."@pixi/text-bitmap-7.2.4" // {
+        dependencies = [
+          sources."@pixi/color-7.2.4"
+          sources."@pixi/constants-7.2.4"
+          sources."@pixi/core-7.2.4"
+          sources."@pixi/display-7.2.4"
+          sources."@pixi/extensions-7.2.4"
+          sources."@pixi/math-7.2.4"
+          sources."@pixi/runner-7.2.4"
+          sources."@pixi/settings-7.2.4"
+          sources."@pixi/ticker-7.2.4"
+          sources."@pixi/utils-7.2.4"
+        ];
+      })
+      (sources."@pixi/text-html-7.2.4" // {
+        dependencies = [
+          sources."@pixi/color-7.2.4"
+          sources."@pixi/constants-7.2.4"
+          sources."@pixi/core-7.2.4"
+          sources."@pixi/display-7.2.4"
+          sources."@pixi/extensions-7.2.4"
+          sources."@pixi/math-7.2.4"
+          sources."@pixi/runner-7.2.4"
+          sources."@pixi/settings-7.2.4"
+          sources."@pixi/sprite-7.2.4"
+          sources."@pixi/ticker-7.2.4"
+          sources."@pixi/utils-7.2.4"
+        ];
+      })
       sources."@pixi/ticker-7.3.1"
       sources."@pixi/utils-7.3.1"
       sources."@smithy/abort-controller-2.0.9"
@@ -4665,6 +5104,7 @@ let
       sources."color-convert-1.9.3"
       sources."color-name-1.1.3"
       sources."color-string-1.9.1"
+      sources."colord-2.9.3"
       sources."colorspace-1.1.4"
       sources."combined-stream-1.0.8"
       sources."commander-9.5.0"
@@ -4921,7 +5361,22 @@ let
       sources."performance-now-2.1.0"
       sources."picocolors-1.0.0"
       sources."picomatch-2.3.1"
-      sources."pixi.js-7.3.1"
+      (sources."pixi.js-7.2.4" // {
+        dependencies = [
+          sources."@pixi/color-7.2.4"
+          sources."@pixi/constants-7.2.4"
+          sources."@pixi/core-7.2.4"
+          sources."@pixi/display-7.2.4"
+          sources."@pixi/extensions-7.2.4"
+          sources."@pixi/graphics-7.2.4"
+          sources."@pixi/math-7.2.4"
+          sources."@pixi/runner-7.2.4"
+          sources."@pixi/settings-7.2.4"
+          sources."@pixi/sprite-7.2.4"
+          sources."@pixi/ticker-7.2.4"
+          sources."@pixi/utils-7.2.4"
+        ];
+      })
       sources."postcss-8.4.30"
       sources."process-0.11.10"
       sources."process-nextick-args-2.0.1"
