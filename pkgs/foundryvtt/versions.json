@@ -167,6 +167,10 @@
     "hash": "sha256-XwTjkjiJ0hUXJbGCPYWgqDYai8+C069LP5+d1GQ7qEo=",
     "npmDepsHash": "sha256-vzhArDcBSNj7EqBpPx7FBysMZ2QLvLkZcMuEEo8jrdc="
   },
+  "6.73": {
+    "hash": "sha256-TjTu80GLysNtbGRMWACniHBBjztoN87449Z0yPssCo4=",
+    "npmDepsHash": "sha256-VS+UHR1K9ugu7TcabFPIGo5MgciNWlN/OH06pfq7udI="
+  },
   "6.74": {
     "hash": "sha256-KCyyaBRmhhu2wayrmTWoPKL67LUoEfo7dtdAmfcBRlc=",
     "npmDepsHash": "sha256-ka680ytt/FCnOjN5WFLwcG9zpLC3qjYNw5HNspM1g4s="
