@@ -166,7 +166,7 @@ let
     in
     "${mappedVersion}+${build}";
 
-  defaultVersion = "11.0.0+311";
+  defaultVersion = "11.0.0+313";
 in
 stdenv.mkDerivation (finalAttrs: {
   name = "foundryvtt-${formatVersion finalAttrs}";
