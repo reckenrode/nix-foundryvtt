@@ -268,9 +268,9 @@
       "integrity": "sha512-qp3m9PPz4gULB9MhjGID7wpo3gJ4bTGXm7ltNDsmOvsPduTeHp8wSW9YckBj3mljeOh4F0m2z/0JKAALRKbmLQ=="
     },
     "node_modules/@types/node": {
-      "version": "20.10.2",
-      "resolved": "https://registry.npmjs.org/@types/node/-/node-20.10.2.tgz",
-      "integrity": "sha512-37MXfxkb0vuIlRKHNxwCkb60PNBpR94u4efQuN4JgIAm66zfCDXGSAFCef9XUWFovX2R1ok6Z7MHhtdVXXkkIw==",
+      "version": "20.10.6",
+      "resolved": "https://registry.npmjs.org/@types/node/-/node-20.10.6.tgz",
+      "integrity": "sha512-Vac8H+NlRNNlAmDfGUP7b5h/KA+AtWIzuXy0E6OyP8f1tCLYAtPvKRRDJjAPqhpCb0t6U2j7/xqAuLEebW2kiw==",
       "dependencies": {
         "undici-types": "~5.26.4"
       }
@@ -369,9 +369,9 @@
       }
     },
     "node_modules/aws-sdk": {
-      "version": "2.1510.0",
-      "resolved": "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.1510.0.tgz",
-      "integrity": "sha512-XQj3QINBNseA5G9Vaa/iihNz3HCrzeyhxrOUjuH0AVxYqa5Q4cxaQhrWiAiUndtO2F70nfukEYe4cCUoTalUoQ==",
+      "version": "2.1528.0",
+      "resolved": "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.1528.0.tgz",
+      "integrity": "sha512-QyV8fTJJAqnBAbAGkRKgXfI/NvxAoeJHjEFVXDo77hv13cJZKOdBTe9dV56ztS4R1twDJxHibXdDi7IeBrag2w==",
       "dependencies": {
         "buffer": "4.9.2",
         "events": "1.1.1",
@@ -2538,9 +2538,9 @@
       }
     },
     "node_modules/postcss": {
-      "version": "8.4.31",
-      "resolved": "https://registry.npmjs.org/postcss/-/postcss-8.4.31.tgz",
-      "integrity": "sha512-PS08Iboia9mts/2ygV3eLpY5ghnUcfLV/EXTOW1E2qYxJKGGBUtNjN76FYHnMs36RmARn41bC0AZmn+rR0OVpQ==",
+      "version": "8.4.32",
+      "resolved": "https://registry.npmjs.org/postcss/-/postcss-8.4.32.tgz",
+      "integrity": "sha512-D/kj5JNu6oo2EIy+XL/26JEDTlIbB8hw85G8StOE6L74RQAVVP5rej6wxCNqyMbR4RkPfqvezVbPw81Ngd6Kcw==",
       "funding": [
         {
           "type": "opencollective",
@@ -2556,7 +2556,7 @@
         }
       ],
       "dependencies": {
-        "nanoid": "^3.3.6",
+        "nanoid": "^3.3.7",
         "picocolors": "^1.0.0",
         "source-map-js": "^1.0.2"
       },
@@ -2648,9 +2648,9 @@
       }
     },
     "node_modules/prosemirror-model": {
-      "version": "1.19.3",
-      "resolved": "https://registry.npmjs.org/prosemirror-model/-/prosemirror-model-1.19.3.tgz",
-      "integrity": "sha512-tgSnwN7BS7/UM0sSARcW+IQryx2vODKX4MI7xpqY2X+iaepJdKBPc7I4aACIsDV/LTaTjt12Z56MhDr9LsyuZQ==",
+      "version": "1.19.4",
+      "resolved": "https://registry.npmjs.org/prosemirror-model/-/prosemirror-model-1.19.4.tgz",
+      "integrity": "sha512-RPmVXxUfOhyFdayHawjuZCxiROsm9L4FCUA6pWI+l7n2yCBsWy9VpdE1hpDHUS8Vad661YLY9AzqfjLhAKQ4iQ==",
       "dependencies": {
         "orderedmap": "^2.0.0"
       }
@@ -2684,9 +2684,9 @@
       }
     },
     "node_modules/prosemirror-view": {
-      "version": "1.32.4",
-      "resolved": "https://registry.npmjs.org/prosemirror-view/-/prosemirror-view-1.32.4.tgz",
-      "integrity": "sha512-WoT+ZYePp0WQvp5coABAysheZg9WttW3TSEUNgsfDQXmVOJlnjkbFbXicKPvWFLiC0ZjKt1ykbyoVKqhVnCiSQ==",
+      "version": "1.32.7",
+      "resolved": "https://registry.npmjs.org/prosemirror-view/-/prosemirror-view-1.32.7.tgz",
+      "integrity": "sha512-pvxiOoD4shW41X5bYDjRQk3DSG4fMqxh36yPMt7VYgU3dWRmqFzWJM/R6zeo1KtC8nyk717ZbQND3CC9VNeptw==",
       "dependencies": {
         "prosemirror-model": "^1.16.0",
         "prosemirror-state": "^1.0.0",
@@ -3373,9 +3373,9 @@
       "integrity": "sha512-uuVGNWzgJ4yhRaNSiubPY7OjISw4sw4E5Uv0wbjp+OzcbmVU/rsT8ujgcXJhn9ypzsgr5vlzpPqP+MBBKcGvbg=="
     },
     "node_modules/tinymce": {
-      "version": "6.8.1",
-      "resolved": "https://registry.npmjs.org/tinymce/-/tinymce-6.8.1.tgz",
-      "integrity": "sha512-WYPvMXIjBrXM/oBiqGCbT2a8ptiO3TWXm/xxPWDCl8SxRKMW7Rfp0Lk190E9fXmX6uh9lJMRCnmKHzvryz0ftA=="
+      "version": "6.8.2",
+      "resolved": "https://registry.npmjs.org/tinymce/-/tinymce-6.8.2.tgz",
+      "integrity": "sha512-Lho79o2Y1Yn+XdlTEkHTEkEmzwYWTXz7IUsvPwxJF3VTtgHUIAAuBab29kik+f2KED3rZvQavr9D7sHVMJ9x4A=="
     },
     "node_modules/toidentifier": {
       "version": "1.0.1",
