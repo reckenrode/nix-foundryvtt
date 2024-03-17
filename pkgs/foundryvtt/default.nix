@@ -111,7 +111,7 @@ let
           v10 = {
             lower = "260";
             upper = "292";
-            exceptions = [ "303" ];
+            exceptions = [ "303" "310" "312" ];
           };
 
           v11 = {
