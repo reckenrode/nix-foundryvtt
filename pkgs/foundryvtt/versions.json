@@ -1,4 +1,13 @@
 {
+  "1.32": {
+    "releaseType": "development"
+  },
+  "1.33": {
+    "releaseType": "development"
+  },
+  "1.34": {
+    "releaseType": "development"
+  },
   "10.260": {
     "hash": "sha256-c7EnxUdXhxSoqD7tBWitO4T54xHTaXLN0YaVkAvkbIM=",
     "npmDepsHash": "sha256-25hHKtGCMKhGJGRL5s8fU5iJ1bZkZlUHc/eWiTL1ui4=",
@@ -228,6 +237,114 @@
     "hash": "sha256-oYJTDXKj+IXNAxDoHx/9jylGlb5baTHdb/Vlvg7T3AE=",
     "npmDepsHash": "sha256-08vkI3xBDQ1HCO64KYBg/RuebIHBVqfRGCyObu7JJmo=",
     "releaseType": "stable"
+  },
+  "2.35": {
+    "releaseType": "prototype"
+  },
+  "2.36": {
+    "releaseType": "development"
+  },
+  "2.37": {
+    "releaseType": "development"
+  },
+  "2.38": {
+    "releaseType": "development"
+  },
+  "2.39": {
+    "releaseType": "development"
+  },
+  "2.40": {
+    "releaseType": "development"
+  },
+  "2.41": {
+    "releaseType": "development"
+  },
+  "2.42": {
+    "releaseType": "development"
+  },
+  "2.43": {
+    "releaseType": "development"
+  },
+  "2.44": {
+    "releaseType": "development"
+  },
+  "3.45": {
+    "releaseType": "prototype"
+  },
+  "3.46": {
+    "releaseType": "development"
+  },
+  "3.47": {
+    "releaseType": "development"
+  },
+  "3.48": {
+    "releaseType": "development"
+  },
+  "3.49": {
+    "releaseType": "development"
+  },
+  "3.50": {
+    "releaseType": "development"
+  },
+  "3.51": {
+    "releaseType": "development"
+  },
+  "3.52": {
+    "releaseType": "development"
+  },
+  "3.53": {
+    "releaseType": "development"
+  },
+  "3.54": {
+    "releaseType": "development"
+  },
+  "4.55": {
+    "releaseType": "prototype"
+  },
+  "4.56": {
+    "releaseType": "testing"
+  },
+  "4.57": {
+    "releaseType": "development"
+  },
+  "4.58": {
+    "releaseType": "testing"
+  },
+  "4.59": {
+    "releaseType": "development"
+  },
+  "4.60": {
+    "releaseType": "testing"
+  },
+  "4.61": {
+    "releaseType": "development"
+  },
+  "4.62": {
+    "releaseType": "testing"
+  },
+  "5.63": {
+    "releaseType": "prototype"
+  },
+  "5.64": {
+    "releaseType": "testing"
+  },
+  "5.65": {
+    "releaseType": "development"
+  },
+  "5.66": {
+    "releaseType": "testing"
+  },
+  "5.67": {
+    "releaseType": "development"
+  },
+  "5.68": {
+    "releaseType": "testing"
+  },
+  "5.69": {
+    "releaseType": "development"
+  },
+  "5.70": {
+    "releaseType": "testing"
   },
   "6.71": {
     "hash": "sha256-IPV1jy4F+aQ1LJaa4uLu/E4aStI/05AH3Pxdo7y2WxA=",
