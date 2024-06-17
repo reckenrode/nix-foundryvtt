@@ -1,38 +1,45 @@
-{ lib
-, buildPackages
-, unzip
-, requireFile
-, openssl
-, makeWrapper
-, gzip
-, zstd
-, brotli
-, pngout
-, stdenv
-, writeScript
-, nodejs
-, usePngout ? true
+{
+  lib,
+  buildPackages,
+  unzip,
+  requireFile,
+  openssl,
+  makeWrapper,
+  gzip,
+  zstd,
+  brotli,
+  pngout,
+  stdenv,
+  writeScript,
+  nodejs,
+  usePngout ? true,
 }:
 
 let
-  foundry-version-hashes = version:
-    (lib.importJSON ./versions.json).${version} or (
-      builtins.abort "Unknown foundryvtt version: '${version}'. Please run the update script."
-    );
+  foundry-version-hashes =
+    version:
+    (lib.importJSON ./versions.json).${version}
+      or (builtins.abort "Unknown foundryvtt version: '${version}'. Please run the update script.");
 
   # Needed to make `buildNpmPackage` work with how the FoundryVTT zip is structured.
   buildNpmPackage = buildPackages.buildNpmPackage.override { inherit fetchNpmDeps; };
 
-  fetchNpmDeps = args: buildPackages.fetchNpmDeps (args // {
-    buildInputs = [ unzip ];
-    setSourceRoot = ''
-      if [[ "$curSrc" =~ FoundryVTT-.*.zip$ ]]; then
-        sourceRoot=$(pwd)/resources/app
-      fi
-    '';
-  });
+  fetchNpmDeps =
+    args:
+    buildPackages.fetchNpmDeps (
+      args
+      // {
+        buildInputs = [ unzip ];
+        setSourceRoot = ''
+          if [[ "$curSrc" =~ FoundryVTT-.*.zip$ ]]; then
+            sourceRoot=$(pwd)/resources/app
+          fi
+        '';
+      }
+    );
 
-  foundryPkg = finalAttrs:
+  foundryPkg =
+    finalAttrs:
     let
       shortVersion = "${finalAttrs.majorVersion}.${finalAttrs.build}";
     in
@@ -49,10 +56,21 @@ let
         install -m644 "${./deps/package-lock-${shortVersion}.json}" "$sourceRoot/package-lock.json"
       '';
 
-      outputs = [ "out" "gzip" "zstd" "brotli" ];
+      outputs = [
+        "out"
+        "gzip"
+        "zstd"
+        "brotli"
+      ];
 
       buildInputs = [ openssl ];
-      nativeBuildInputs = [ makeWrapper unzip gzip zstd brotli ];
+      nativeBuildInputs = [
+        makeWrapper
+        unzip
+        gzip
+        zstd
+        brotli
+      ];
 
       setSourceRoot = "sourceRoot=$(pwd)/resources/app";
 
@@ -61,7 +79,7 @@ let
 
       dontNpmBuild = true;
 
-      postInstall =''
+      postInstall = ''
         foundryvtt=$out/lib/node_modules/foundryvtt
 
         mkdir -p "$out/bin" "$out/libexec"
@@ -75,9 +93,14 @@ let
         ln -s "$foundryvtt/public" "$out/public"
 
         # Run PNG images through `pngout` if it’s available.
-        ${if usePngout then ''
-          find $foundryvtt/public -name '*.png' -exec ${pngout}/bin/pngout {} -k1 -y \;
-        '' else ""}
+        ${
+          if usePngout then
+            ''
+              find $foundryvtt/public -name '*.png' -exec ${pngout}/bin/pngout {} -k1 -y \;
+            ''
+          else
+            ""
+        }
 
         # Precompress assets for use with e.g., Caddy
         for method in gzip zstd brotli; do
@@ -94,7 +117,8 @@ let
       '';
     };
 
-  formatVersion = attrs:
+  formatVersion =
+    attrs:
     let
       version = attrs.version or defaultVersion;
 
@@ -104,14 +128,23 @@ let
         let
           v9 = {
             lower = "220";
-            upper = "260" ;
-            exceptions = [ "266" "268" "269" "280" ];
+            upper = "260";
+            exceptions = [
+              "266"
+              "268"
+              "269"
+              "280"
+            ];
           };
 
           v10 = {
             lower = "260";
             upper = "292";
-            exceptions = [ "303" "310" "312" ];
+            exceptions = [
+              "303"
+              "310"
+              "312"
+            ];
           };
 
           v11 = {
@@ -120,16 +153,21 @@ let
             exceptions = [ ];
           };
 
-          isVersion = version: range:
+          isVersion =
+            version: range:
             lib.versionAtLeast version range.lower
             && (range.upper == null || lib.versionOlder version range.upper)
             || lib.elem version range.exceptions;
         in
         attrs.majorVersion or (
-          /**/ if isVersion build v9 then "9"
-          else if isVersion build v10 then "10"
-          else if isVersion build v11 then "11"
-          else null
+          if isVersion build v9 then
+            "9"
+          else if isVersion build v10 then
+            "10"
+          else if isVersion build v11 then
+            "11"
+          else
+            null
         );
 
       olderMap = {
@@ -174,21 +212,26 @@ stdenv.mkDerivation (finalAttrs: {
   dontUnpack = true;
   dontFixup = true;
 
-  outputs = [ "out" "gzip" "zstd" "brotli" ];
+  outputs = [
+    "out"
+    "gzip"
+    "zstd"
+    "brotli"
+  ];
 
   installPhase =
     let
       foundryvtt = foundryPkg rec {
         pname = lib.getName finalAttrs;
         version = formatVersion finalAttrs;
-        majorVersion = finalAttrs.majorVersion or (
-          if lib.versionAtLeast version "9"
-            then lib.versions.major version
-            else lib.versions.minor version
-        );
+        majorVersion =
+          finalAttrs.majorVersion or (
+            if lib.versionAtLeast version "9" then lib.versions.major version else lib.versions.minor version
+          );
         build = finalAttrs.build or (lib.last (lib.versions.splitVersion version));
       };
-    in ''
+    in
+    ''
       ln -s "${foundryvtt.outPath}" "$out"
       ln -s "${foundryvtt.gzip}" "$gzip"
       ln -s "${foundryvtt.zstd}" "$zstd"

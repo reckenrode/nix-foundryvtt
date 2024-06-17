@@ -7,41 +7,43 @@
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
 
-  outputs = inputs@{ self, nixpkgs, ... }:
+  outputs =
+    inputs@{ self, nixpkgs, ... }:
     let
       lib = nixpkgs.lib;
 
-      darwin = [ "x86_64-darwin" "aarch64-darwin" ];
-      linux = [ "x86_64-linux" "aarch64-linux" ];
+      darwin = [
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+      linux = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
 
       forEachSystem = systems: f: lib.genAttrs systems (system: f system);
       forAllSystems = forEachSystem (darwin ++ linux);
     in
     {
       nixosModules.foundryvtt = import ./modules/foundryvtt self;
-      packages = forAllSystems (system:
+      packages = forAllSystems (
+        system:
         let
           pkgs = import nixpkgs {
             inherit system;
-            config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-              "pngout"
-            ];
+            config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "pngout" ];
           };
         in
         {
           foundryvtt = pkgs.callPackage ./pkgs/foundryvtt {
-            pngout = if pkgs.stdenv.isDarwin && pkgs.stdenv.isAarch64
-              then pkgs.pkgsx86_64Darwin.pngout
-              else pkgs.pngout;
+            pngout =
+              if pkgs.stdenv.isDarwin && pkgs.stdenv.isAarch64 then pkgs.pkgsx86_64Darwin.pngout else pkgs.pngout;
           };
-          foundryvtt_9 = self.packages.${system}.foundryvtt.overrideAttrs {
-            version = "9.0.0+280";
-          };
-          foundryvtt_10 = self.packages.${system}.foundryvtt.overrideAttrs {
-            version = "10.0.0+310";
-          };
+          foundryvtt_9 = self.packages.${system}.foundryvtt.overrideAttrs { version = "9.0.0+280"; };
+          foundryvtt_10 = self.packages.${system}.foundryvtt.overrideAttrs { version = "10.0.0+310"; };
           foundryvtt_11 = self.packages.${system}.foundryvtt;
           default = self.packages.${system}.foundryvtt;
-        });
+        }
+      );
     };
 }
