@@ -5,7 +5,7 @@
     the browser.
   '';
 
-  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
 
   outputs =
     inputs@{ self, nixpkgs, ... }:
