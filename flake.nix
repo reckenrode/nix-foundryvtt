@@ -33,15 +33,34 @@
             inherit system;
             config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "pngout" ];
           };
+
+          mkFoundry =
+            attrs:
+            (pkgs.callPackage ./pkgs/foundryvtt {
+              pngout =
+                if pkgs.stdenv.isDarwin && pkgs.stdenv.isAarch64 then pkgs.pkgsx86_64Darwin.pngout else pkgs.pngout;
+            }).overrideAttrs
+              (old: old // attrs);
         in
         {
-          foundryvtt = pkgs.callPackage ./pkgs/foundryvtt {
-            pngout =
-              if pkgs.stdenv.isDarwin && pkgs.stdenv.isAarch64 then pkgs.pkgsx86_64Darwin.pngout else pkgs.pngout;
+          foundryvtt = mkFoundry { };
+          foundryvtt_9 = mkFoundry {
+            majorVersion = "9";
+            releaseType = "stable";
           };
-          foundryvtt_9 = self.packages.${system}.foundryvtt.overrideAttrs { version = "9.0.0+280"; };
-          foundryvtt_10 = self.packages.${system}.foundryvtt.overrideAttrs { version = "10.0.0+310"; };
-          foundryvtt_11 = self.packages.${system}.foundryvtt;
+          foundryvtt_10 = mkFoundry {
+            majorVersion = "10";
+            releaseType = "stable";
+          };
+          foundryvtt_11 = mkFoundry {
+            majorVersion = "11";
+            releaseType = "stable";
+          };
+          foundryvtt_12 = mkFoundry {
+            majorVersion = "12";
+            releaseType = "development";
+          };
+          foundryvtt_latest = self.packages.${system}.foundryvtt_12;
           default = self.packages.${system}.foundryvtt;
         }
       );

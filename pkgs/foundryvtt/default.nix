@@ -16,10 +16,82 @@
 }:
 
 let
-  foundry-version-hashes =
-    version:
-    (lib.importJSON ./versions.json).${version}
-      or (builtins.abort "Unknown foundryvtt version: '${version}'. Please run the update script.");
+  foundry-version-hashes = lib.importJSON ./versions.json;
+
+  resolveVersion =
+    attrs:
+    if attrs ? version then
+      let
+        inherit (attrs) version;
+
+        versionParts = lib.versions.splitVersion version;
+        major = if lib.head versionParts == "0" then lib.versions.minor version else lib.head versionParts;
+        build = lib.last versionParts;
+        name = "${major}.${build}";
+      in
+      {
+        inherit name;
+        value =
+          foundry-version-hashes.${name}
+            or (builtins.abort "Unknow  n FoundryVTT version: '${attrs.version}'. Please run the update script.");
+      }
+    else if (attrs.majorVersion or null) == null then
+      lib.warn
+        "Using `default` or the unversioned `foundryvtt` attribute without specifying a major version is deprecated. It will always default to FoundryVTT v11. Specify a `majorVersion` or use one of the versioned attributes."
+        (resolveVersion (attrs // { majorVersion = "11"; }))
+    else if (attrs.build or null) != null then
+      let
+        inherit (attrs) build;
+        resolved = lib.pipe foundry-version-hashes [
+          lib.attrsToList
+          (lib.filter (versionInfo: lib.versions.minor versionInfo.name == build))
+        ];
+      in
+      if lib.length resolved > 0 then
+        lib.last resolved
+      else
+        builtins.abort "Unknown FoundryVTT build: '${build}'. Please run the update script."
+    else
+      let
+        inherit (attrs) majorVersion;
+        releaseType = lib.toLower (attrs.releaseType or "release");
+
+        isReleaseTypeAndMajor =
+          versionInfo:
+          releaseAtLeast releaseType versionInfo.value.releaseType
+          && lib.versions.major versionInfo.name == majorVersion;
+
+        resolved = lib.pipe foundry-version-hashes [
+          lib.attrsToList
+          (lib.filter isReleaseTypeAndMajor)
+          (lib.sort (lhs: rhs: lhs.name < rhs.name))
+        ];
+      in
+      if lib.length resolved > 0 then
+        lib.last resolved
+      else
+        builtins.abort "Unknown FoundryVTT major version: '${majorVersion}'. Please run the update script.";
+
+  prioritiesMap =
+    lib.pipe
+      [
+        "prototype"
+        "development"
+        "testing"
+        "stable"
+      ]
+      [
+        (lib.imap0 (lib.flip lib.nameValuePair))
+        lib.listToAttrs
+      ];
+
+  releaseAtLeast =
+    releaseType: release:
+    let
+      typePriority = prioritiesMap.${releaseType};
+      releasePriority = prioritiesMap.${release};
+    in
+    releasePriority >= typePriority;
 
   # Needed to make `buildNpmPackage` work with how the FoundryVTT zip is structured.
   buildNpmPackage = buildPackages.buildNpmPackage.override { inherit fetchNpmDeps; };
@@ -39,16 +111,18 @@ let
     );
 
   foundryPkg =
-    finalAttrs:
+    attrs:
     let
-      shortVersion = "${finalAttrs.majorVersion}.${finalAttrs.build}";
+      inherit (attrs) resolvedVersion;
+      finalAttrs = removeAttrs attrs [ "resolvedVersion" ];
+      shortVersion = resolvedVersion.name;
     in
     buildNpmPackage {
       inherit (finalAttrs) pname version;
 
       src = requireFile {
         name = "FoundryVTT-${shortVersion}.zip";
-        inherit (foundry-version-hashes shortVersion) hash;
+        inherit (resolvedVersion.value) hash;
         url = "https://foundryvtt.com";
       };
 
@@ -75,7 +149,7 @@ let
       setSourceRoot = "sourceRoot=$(pwd)/resources/app";
 
       makeCacheWritable = true;
-      inherit (foundry-version-hashes shortVersion) npmDepsHash;
+      inherit (resolvedVersion.value) npmDepsHash;
 
       dontNpmBuild = true;
 
@@ -120,55 +194,7 @@ let
   formatVersion =
     attrs:
     let
-      version = attrs.version or defaultVersion;
-
-      build = attrs.build or (lib.last (lib.versions.splitVersion version));
-
-      majorVersion =
-        let
-          v9 = {
-            lower = "220";
-            upper = "260";
-            exceptions = [
-              "266"
-              "268"
-              "269"
-              "280"
-            ];
-          };
-
-          v10 = {
-            lower = "260";
-            upper = "292";
-            exceptions = [
-              "303"
-              "310"
-              "312"
-            ];
-          };
-
-          v11 = {
-            lower = "292";
-            upper = null;
-            exceptions = [ ];
-          };
-
-          isVersion =
-            version: range:
-            lib.versionAtLeast version range.lower
-            && (range.upper == null || lib.versionOlder version range.upper)
-            || lib.elem version range.exceptions;
-        in
-        attrs.majorVersion or (
-          if isVersion build v9 then
-            "9"
-          else if isVersion build v10 then
-            "10"
-          else if isVersion build v11 then
-            "11"
-          else
-            null
-        );
+      inherit (attrs) majorVersion build;
 
       olderMap = {
         "71" = "0.6.0";
@@ -203,90 +229,88 @@ let
       mappedVersion = olderMap.${build} or "${majorVersion}.0.0";
     in
     "${mappedVersion}+${build}";
-
-  defaultVersion = "11.0.0+315";
 in
-stdenv.mkDerivation (finalAttrs: {
-  name = "foundryvtt-${formatVersion finalAttrs}";
+stdenv.mkDerivation (
+  finalAttrs:
+  let
+    resolvedVersion = resolveVersion finalAttrs;
+    majorVersion = lib.versions.major resolvedVersion.name;
+    build = lib.versions.minor resolvedVersion.name;
+    version = finalAttrs.version or (formatVersion { inherit majorVersion build; });
+  in
+  {
+    name = "foundryvtt-${version}";
 
-  dontUnpack = true;
-  dontFixup = true;
+    outputs = [
+      "out"
+      "gzip"
+      "zstd"
+      "brotli"
+    ];
 
-  outputs = [
-    "out"
-    "gzip"
-    "zstd"
-    "brotli"
-  ];
+    buildCommand =
+      let
+        foundryvtt = foundryPkg {
+          pname = lib.getName finalAttrs;
+          version = lib.getVersion finalAttrs;
+          inherit resolvedVersion;
+        };
+      in
+      ''
+        ln -s "${foundryvtt.outPath}" "$out"
+        ln -s "${foundryvtt.gzip}" "$gzip"
+        ln -s "${foundryvtt.zstd}" "$zstd"
+        ln -s "${foundryvtt.brotli}" "$brotli"
+      '';
 
-  installPhase =
-    let
-      foundryvtt = foundryPkg rec {
-        pname = lib.getName finalAttrs;
-        version = formatVersion finalAttrs;
-        majorVersion =
-          finalAttrs.majorVersion or (
-            if lib.versionAtLeast version "9" then lib.versions.major version else lib.versions.minor version
-          );
-        build = finalAttrs.build or (lib.last (lib.versions.splitVersion version));
-      };
-    in
-    ''
-      ln -s "${foundryvtt.outPath}" "$out"
-      ln -s "${foundryvtt.gzip}" "$gzip"
-      ln -s "${foundryvtt.zstd}" "$zstd"
-      ln -s "${foundryvtt.brotli}" "$brotli"
+    passthru.updateScript = writeScript "update-foundryvtt" ''
+      #!/usr/bin/env nix-shell
+      #!nix-shell -i bash -p coreutils gnused jq moreutils nodejs prefetch-npm-deps unzip
+      set -eu -o pipefail
+
+      src=''${src:-$1}
+
+      shortVersion=$(basename "$src" | sed 's|.*-\([0-9][0-9]*\.[0-9][0-9]*\).zip|\1|')
+      version="''${shortVersion%%.*}.0.0+''${shortVersion#*.}"
+
+      foundrySrc=$(mktemp -d)
+      trap 'rm -rf -- "$foundrySrc"' EXIT
+
+      unzip -q "$src" -d "$foundrySrc"
+
+      # Generate package-lock.json for the requested version
+      pushd "$foundrySrc/resources/app" > /dev/null
+      sed \
+        -e 's|"@foundryvtt/pdfjs": "2.14.305"|"@foundryvtt/pdfjs": "foundryvtt/pdfjs#d9c4a6ee44512a094bc7395aa0ba7fe9be9a8375"|' \
+        -e 's|"@foundryvtt/pdfjs": "2.14.305-1"|"@foundryvtt/pdfjs": "foundryvtt/pdfjs#2196ae9bcbd8d6a9b0b9c493d0e9f3aca13f2fd9"|' \
+        -e 's|"@foundryvtt/pdfjs": "\([0-9.-]*\)"|"@foundryvtt/pdfjs": "foundryvtt/pdfjs#v\1"|' \
+        -e 's|"pixi.js": "^\([0-9.-]*\)"|"pixi.js": "~\1"|' \
+        -i package.json
+      npm update
+      sed \
+        -e 's|"@foundryvtt/pdfjs": "foundryvtt/pdfjs#d9c4a6ee44512a094bc7395aa0ba7fe9be9a8375"|"@foundryvtt/pdfjs": "2.14.305"|' \
+        -e 's|"@foundryvtt/pdfjs": "foundryvtt/pdfjs#2196ae9bcbd8d6a9b0b9c493d0e9f3aca13f2fd9"|"@foundryvtt/pdfjs": "2.14.305-1"|' \
+        -e 's|"@foundryvtt/pdfjs": "foundryvtt/pdfjs#v\([^"]*\)"|"@foundryvtt/pdfjs": "\1"|' \
+        -e 's|"pixi.js": "~\([0-9.-]*\)"|"pixi.js": "^\1"|' \
+        -i package-lock.json
+      popd
+
+      cp "$foundrySrc/resources/app/package-lock.json" "./pkgs/foundryvtt/deps/package-lock-$shortVersion.json"
+
+      hash=$(nix hash file "$src")
+      npmsDepsHash=$(prefetch-npm-deps "$foundrySrc/resources/app/package-lock.json")
+      releaseType=''${2:-$(jq -r ".\"$shortVersion\".releaseType" pkgs/foundryvtt/versions.json)}
+
+      versionJson="{\"$shortVersion\": { \"hash\": \"$hash\", \"npmDepsHash\": \"$npmsDepsHash\", \"releaseType\": \"$releaseType\" }}"
+      jq -S ". * $versionJson" ./pkgs/foundryvtt/versions.json \
+        | sponge ./pkgs/foundryvtt/versions.json
     '';
 
-  passthru.updateScript = writeScript "update-foundryvtt" ''
-    #!/usr/bin/env nix-shell
-    #!nix-shell -i bash -p coreutils gnused jq moreutils nodejs prefetch-npm-deps unzip
-    set -eu -o pipefail
-
-    src=''${src:-$1}
-
-    shortVersion=$(basename "$src" | sed 's|.*-\([0-9][0-9]*\.[0-9][0-9]*\).zip|\1|')
-    version="''${shortVersion%%.*}.0.0+''${shortVersion#*.}"
-
-    foundrySrc=$(mktemp -d)
-    trap 'rm -rf -- "$foundrySrc"' EXIT
-
-    unzip -q "$src" -d "$foundrySrc"
-
-    # Generate package-lock.json for the requested version
-    pushd "$foundrySrc/resources/app" > /dev/null
-    sed \
-      -e 's|"@foundryvtt/pdfjs": "2.14.305"|"@foundryvtt/pdfjs": "foundryvtt/pdfjs#d9c4a6ee44512a094bc7395aa0ba7fe9be9a8375"|' \
-      -e 's|"@foundryvtt/pdfjs": "2.14.305-1"|"@foundryvtt/pdfjs": "foundryvtt/pdfjs#2196ae9bcbd8d6a9b0b9c493d0e9f3aca13f2fd9"|' \
-      -e 's|"@foundryvtt/pdfjs": "\([0-9.-]*\)"|"@foundryvtt/pdfjs": "foundryvtt/pdfjs#v\1"|' \
-      -e 's|"pixi.js": "^\([0-9.-]*\)"|"pixi.js": "~\1"|' \
-      -i package.json
-    npm update
-    sed \
-      -e 's|"@foundryvtt/pdfjs": "foundryvtt/pdfjs#d9c4a6ee44512a094bc7395aa0ba7fe9be9a8375"|"@foundryvtt/pdfjs": "2.14.305"|' \
-      -e 's|"@foundryvtt/pdfjs": "foundryvtt/pdfjs#2196ae9bcbd8d6a9b0b9c493d0e9f3aca13f2fd9"|"@foundryvtt/pdfjs": "2.14.305-1"|' \
-      -e 's|"@foundryvtt/pdfjs": "foundryvtt/pdfjs#v\([^"]*\)"|"@foundryvtt/pdfjs": "\1"|' \
-      -e 's|"pixi.js": "~\([0-9.-]*\)"|"pixi.js": "^\1"|' \
-      -i package-lock.json
-    popd
-
-    cp "$foundrySrc/resources/app/package-lock.json" "./pkgs/foundryvtt/deps/package-lock-$shortVersion.json"
-
-    hash=$(nix hash file "$src")
-    npmsDepsHash=$(prefetch-npm-deps "$foundrySrc/resources/app/package-lock.json")
-
-    versionJson="{\"$shortVersion\": { \"hash\": \"$hash\", \"npmDepsHash\": \"$npmsDepsHash\" }}"
-    jq -S ". * $versionJson" ./pkgs/foundryvtt/versions.json \
-      | sponge ./pkgs/foundryvtt/versions.json
-
-    sed "s|defaultVersion = \"${formatVersion finalAttrs}\";|defaultVersion = \"$version\";|" \
-      -i ./pkgs/foundryvtt/default.nix
-  '';
-
-  meta = {
-    homepage = "https://foundryvtt.com";
-    description = "A self-hosted, modern, and developer-friendly roleplaying platform.";
-    #license = lib.licenses.unfree;
-    platforms = lib.lists.intersectLists nodejs.meta.platforms openssl.meta.platforms;
-  };
-})
+    meta = {
+      homepage = "https://foundryvtt.com";
+      description = "A self-hosted, modern, and developer-friendly roleplaying platform.";
+      #license = lib.licenses.unfree;
+      platforms = lib.lists.intersectLists nodejs.meta.platforms openssl.meta.platforms;
+    };
+  }
+)
