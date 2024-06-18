@@ -6,6 +6,88 @@ the hope I can do a better job keeping up to date with releases when we’re not
 
 The NixOS module targets the latest release of NixOS. That’s 24.05. 
 
+## Using the Module
+
+To use the module, add it to the modules list in your NixOS configuration. See below for an example `flake.nix` and
+`configuration.nix`. See [modules/foundryvtt/default.nix][1] for the available options.
+
+#### `flake.nix`
+```nix
+{
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+  inputs.foundryvtt.url = "github:reckenrode/nix-foundryvtt";
+
+  outputs = { self, nixpkgs, foundryvtt }: {
+    nixosConfigurations.example = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = { inherit inputs; };
+      modules = [
+        ./configuration.nix
+	    inputs.foundryvtt.nixosModules.foundryvtt
+      ];
+    };
+  };
+}
+```
+
+#### `configuration.nix`
+
+```nix
+{
+  services.foundryvtt = {
+    enable = false;
+    hostName = "<hostname goes here>";
+    minifyStaticFiles = true;
+    proxyPort = 443;
+    proxySSL = true;
+    upnp = false;
+  };
+}
+```
+
+### Using a different version of Foundry VTT
+
+By default, the module uses `foundryvtt`, which corresponds to FoundryVTT v11. You should change the module to
+the version of FoundryVTT you plan to run on your server. See below for how to use a different package version.
+
+```nix
+{ inputs, pkgs, ... }:
+
+{
+  services.foundryvtt = {
+    enable = false;
+    hostName = "<hostname goes here>";
+    minifyStaticFiles = true;
+    package = inputs.foundryvtt.packages.${pkgs.system}.foundryvtt_12; # Sets the version to the latest FoundryVTT v12.
+    proxyPort = 443;
+    proxySSL = true;
+    upnp = false;
+  };
+}
+```
+
+### Preventing Garbage Collection of the FoundryVTT Zip File
+
+Because FoundryVTT is not available for download without a login, it has to be added manually to the store. Doing this
+per the instructions when you first build your configuration will add the file to the store, but the file is at risk
+of being garbage collected when `nix-collect-garbage` is run. To prevent the file from being garbage collected, create a
+GC root. As long as the created root exists, it will be used as necessary when you rebuild or update your configs.
+
+**Note:** You will need to repeat this procedure for every version of FoundryVTT that you use. 
+
+```shell
+$ nix-store --add-fixed sha256 FoundryVTT-<version>.zip
+/nix/store/<hash>-FoundryVTT-<version>.zip
+$ mkdir -p <some path>
+$ nix-store --add-root <some path>/FoundryVTT-<version>.zip -r /nix/store/<hash>-FoundryVTT-<version>.zip
+<some path>/FoundryVTT-<version>.zip
+$ ls -al <some path>
+total 0
+drwxr-xr-x   3 reckenrode staff   96 Jun 18 18:33 ./
+drwxr-x---+ 75 reckenrode staff 2400 Jun 18 18:33 ../
+lrwxr-xr-x   1 reckenrode staff   65 Jun 18 18:33 FoundryVTT-<version>.zip -> /nix/store/<hash>-FoundryVTT-<version>.zip
+```
+
 ## Versioning Policy
 
 nix-foundryvtt has version information for all available releases of Foundry VTT. It provides packages for the latest
@@ -38,3 +120,5 @@ This repo packages only a single release of FoundryVTT; typically the most up-to
    * `<release type>` is one of the above release types.
 
 3. Commit all the changes to a branch, test them, and create a PR for the update.
+
+[1]: https://github.com/reckenrode/nix-foundryvtt/blob/main/modules/foundryvtt/default.nix
