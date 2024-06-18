@@ -1,23 +1,57 @@
-flake: { config, lib, pkgs, ... }:
+flake:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (builtins) toJSON removeAttrs;
-  inherit (lib) filterAttrs types mkEnableOption mkOption mkRenamedOptionModule;
+  inherit (lib)
+    filterAttrs
+    types
+    mkEnableOption
+    mkOption
+    mkRenamedOptionModule
+    ;
   inherit (lib.trivial) pipe;
 
   inherit (flake.packages.${pkgs.stdenv.hostPlatform.system}) foundryvtt;
 
   cfg = config.services.foundryvtt;
-  configFile = pkgs.writeText "options.json"
-    (toJSON (pipe cfg [
-      (cfg: cfg // { hostname = cfg.hostName; })
-      (lst: removeAttrs lst [ "enable" "hostName" "package" "dataDir" ])
-      (filterAttrs (attr: value: value != null))
-    ]));
+  configFile = pkgs.writeText "options.json" (
+    toJSON (
+      pipe cfg [
+        (cfg: cfg // { hostname = cfg.hostName; })
+        (
+          lst:
+          removeAttrs lst [
+            "enable"
+            "hostName"
+            "package"
+            "dataDir"
+          ]
+        )
+        (filterAttrs (attr: value: value != null))
+      ]
+    )
+  );
 in
 {
   imports = [
-    (mkRenamedOptionModule [ "services" "foundryvtt" "hostname" ] [ "services" "foundryvtt" "hostName" ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "foundryvtt"
+        "hostname"
+      ]
+      [
+        "services"
+        "foundryvtt"
+        "hostName"
+      ]
+    )
   ];
 
   options = {
@@ -204,7 +238,11 @@ in
         StateDirectoryMode = "0750";
 
         # Hardening
-        CapabilityBoundingSet = [ "AF_NETLINK" "AF_INET" "AF_INET6" ];
+        CapabilityBoundingSet = [
+          "AF_NETLINK"
+          "AF_INET"
+          "AF_INET6"
+        ];
         DeviceAllow = [ "/dev/stdin r" ];
         DevicePolicy = "strict";
         IPAddressAllow = "localhost";
@@ -224,12 +262,21 @@ in
         ProtectSystem = "strict";
         ReadOnlyPaths = [ "/" ];
         RemoveIPC = true;
-        RestrictAddressFamilies = [ "AF_NETLINK" "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_NETLINK"
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" "@pkey" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+          "~@resources"
+          "@pkey"
+        ];
         UMask = "0027";
       };
 
