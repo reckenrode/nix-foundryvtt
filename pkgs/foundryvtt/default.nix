@@ -54,7 +54,7 @@ let
     else
       let
         inherit (attrs) majorVersion;
-        releaseType = lib.toLower (attrs.releaseType or "release");
+        releaseType = lib.toLower (attrs.releaseType or "stable");
 
         isReleaseTypeAndMajor =
           versionInfo:
