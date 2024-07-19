@@ -112,8 +112,6 @@ The FoundryVTT version can be overriden using `overrideAttrs`.
 
 ## Performing a Foundry Upgrade
 
-This repo packages only a single release of FoundryVTT; typically the most up-to-date version.  When Foundry releases a new version, here's a procedure for upgrading to the latest release.
-
 1. Download the new Linux/NodeJS version of Foundry from your licensed account at https://foundryvtt.com/
 
 2. Run `nix build .#foundryvtt.passthru.updateScript && ./result <path to download>/FoundryVTT-<version>.zip <release type>`
