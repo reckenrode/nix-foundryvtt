@@ -298,6 +298,11 @@
     "npmDepsHash": "sha256-8e0ynxs/LwjBj7wJD8kpIhLd8MCWpxW49p/5CitfwIw=",
     "releaseType": "stable"
   },
+  "12.329": {
+    "hash": "sha256-BXmtrLtNp2+wkHrM9RFim4BusEbWTQ1tE02oIItoCHw=",
+    "npmDepsHash": "sha256-qeHsc+hT0wFEhyQAf27nFJDN4nty4avTLInQM/Vbe5U=",
+    "releaseType": "stable"
+  },
   "2.35": {
     "releaseType": "prototype"
   },
