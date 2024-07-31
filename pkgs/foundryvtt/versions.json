@@ -306,7 +306,7 @@
   "12.330": {
     "hash": "sha256-wZ9Laq8Z1gczjdOEEnx47PaOkpr6+uCgB1hQpA1oCVs=",
     "npmDepsHash": "sha256-1hAzfG4CgaqnaVxJHYNT9g7V8xm4Rx9wlFFs6rJPUIA=",
-    "releaseType": "null"
+    "releaseType": "stable"
   },
   "2.35": {
     "releaseType": "prototype"
