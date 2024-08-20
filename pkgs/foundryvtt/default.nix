@@ -8,11 +8,11 @@
   gzip,
   zstd,
   brotli,
-  pngout,
+  oxipng,
   stdenv,
   writeScript,
   nodejs,
-  usePngout ? true,
+  useOxipng ? true,
 }:
 
 let
@@ -33,7 +33,7 @@ let
         inherit name;
         value =
           foundry-version-hashes.${name}
-            or (builtins.abort "Unknow  n FoundryVTT version: '${attrs.version}'. Please run the update script.");
+            or (builtins.abort "Unknown FoundryVTT version: '${attrs.version}'. Please run the update script.");
       }
     else if (attrs.majorVersion or null) == null then
       lib.warn
@@ -166,12 +166,12 @@ let
 
         ln -s "$foundryvtt/public" "$out/public"
 
-        # Run PNG images through `pngout` if it’s available.
+        # Run PNG images through `oxipng` if it's enabled.
+        # could add "-o max" and "--zopfli" to increase compression power
+        # --interlace 0 or 1 to dis-/enable interlacing
         ${
-          if usePngout then
-            ''
-              find $foundryvtt/public -name '*.png' -exec ${pngout}/bin/pngout {} -k1 -y \;
-            ''
+          if useOxipng then
+            "${oxipng}/bin/oxipng $foundryvtt/public/**/*.png -s"
           else
             ""
         }

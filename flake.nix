@@ -8,7 +8,7 @@
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
 
   outputs =
-    inputs@{ self, nixpkgs, ... }:
+    { self, nixpkgs, ... }:
     let
       lib = nixpkgs.lib;
 
@@ -31,16 +31,12 @@
         let
           pkgs = import nixpkgs {
             inherit system;
-            config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "pngout" ];
           };
 
           mkFoundry =
             attrs:
-            (pkgs.callPackage ./pkgs/foundryvtt {
-              pngout =
-                if pkgs.stdenv.isDarwin && pkgs.stdenv.isAarch64 then pkgs.pkgsx86_64Darwin.pngout else pkgs.pngout;
-            }).overrideAttrs
-              (old: old // attrs);
+              (pkgs.callPackage ./pkgs/foundryvtt {})
+                .overrideAttrs (old: old // attrs);
         in
         {
           foundryvtt = mkFoundry { };
