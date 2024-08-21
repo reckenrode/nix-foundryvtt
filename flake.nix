@@ -29,10 +29,7 @@
       packages = forAllSystems (
         system:
         let
-          pkgs = import nixpkgs {
-            inherit system;
-          };
-
+          pkgs = nixpkgs.legacyPackages.${system};
           mkFoundry =
             attrs:
               (pkgs.callPackage ./pkgs/foundryvtt {})
