@@ -61,9 +61,4 @@ async def main(args):
 
 if __name__ == "__main__":
     import sys
-
-    try:
-        event_loop = asyncio.get_event_loop()
-        event_loop.run_until_complete(main(sys.argv))
-    finally:
-        event_loop.close()
+    return event_loop.run(main(sys.argv))
