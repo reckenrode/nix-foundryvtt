@@ -212,79 +212,91 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    users.users.foundryvtt = {
-      description = "Foundry VTT daemon user";
-      isSystemUser = true;
-      group = "foundryvtt";
-    };
-
-    users.groups.foundryvtt = { };
-
-    systemd.services.foundryvtt = {
-      description = "Foundry Virtual Tabletop";
-      documentation = [ "https://foundryvtt.com/kb/" ];
-
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
-
-      serviceConfig = {
-        User = "foundryvtt";
-        Group = "foundryvtt";
-        Restart = "always";
-        ExecStart = "${lib.getBin cfg.package}/bin/foundryvtt --headless --noupdate --dataPath=\"${config.services.foundryvtt.dataDir}\"";
-        StateDirectory = "foundryvtt";
-        StateDirectoryMode = "0750";
-
-        # Hardening
-        CapabilityBoundingSet = [
-          "AF_NETLINK"
-          "AF_INET"
-          "AF_INET6"
-        ];
-        DeviceAllow = [ "/dev/stdin r" ];
-        DevicePolicy = "strict";
-        IPAddressAllow = "localhost";
-        LockPersonality = true;
-        # MemoryDenyWriteExecute = true;
-        NoNewPrivileges = true;
-        PrivateDevices = true;
-        PrivateTmp = true;
-        PrivateUsers = true;
-        ProtectClock = true;
-        ProtectControlGroups = true;
-        ProtectHome = true;
-        ProtectHostname = true;
-        ProtectKernelLogs = true;
-        ProtectKernelModules = true;
-        ProtectKernelTunables = true;
-        ProtectSystem = "strict";
-        ReadOnlyPaths = [ "/" ];
-        RemoveIPC = true;
-        RestrictAddressFamilies = [
-          "AF_NETLINK"
-          "AF_INET"
-          "AF_INET6"
-        ];
-        RestrictNamespaces = true;
-        RestrictRealtime = true;
-        RestrictSUIDSGID = true;
-        SystemCallArchitectures = "native";
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged"
-          "~@resources"
-          "@pkey"
-        ];
-        UMask = "0027";
+  config = lib.mkMerge [
+    (lib.mkIf cfg.enable {
+      users.users.foundryvtt = {
+        description = "Foundry VTT daemon user";
+        isSystemUser = true;
+        group = "foundryvtt";
       };
 
-      preStart = ''
-        installedConfigFile="${config.services.foundryvtt.dataDir}/Config/options.json"
-        install -d -m750 ${config.services.foundryvtt.dataDir}/Config
-        rm -f "$installedConfigFile" && install -m640 ${configFile} "$installedConfigFile"
-      '';
-    };
-  };
+      users.groups.foundryvtt = { };
+
+      systemd.services.foundryvtt = {
+        description = "Foundry Virtual Tabletop";
+        documentation = [ "https://foundryvtt.com/kb/" ];
+
+        after = [ "network-online.target" ];
+        wants = [ "network-online.target" ];
+        wantedBy = [ "multi-user.target" ];
+
+        serviceConfig = {
+          User = "foundryvtt";
+          Group = "foundryvtt";
+          Restart = "always";
+          ExecStart = "${lib.getBin cfg.package}/bin/foundryvtt --headless --noupdate --dataPath=\"${cfg.dataDir}\"";
+          StateDirectory = "foundryvtt";
+          StateDirectoryMode = "0750";
+
+          # Hardening
+          CapabilityBoundingSet = [
+            "AF_NETLINK"
+            "AF_INET"
+            "AF_INET6"
+          ];
+          DeviceAllow = [ "/dev/stdin r" ];
+          DevicePolicy = "strict";
+          IPAddressAllow = "localhost";
+          LockPersonality = true;
+          # MemoryDenyWriteExecute = true;
+          NoNewPrivileges = true;
+          PrivateDevices = true;
+          PrivateTmp = true;
+          PrivateUsers = true;
+          ProtectClock = true;
+          ProtectControlGroups = true;
+          ProtectHome = true;
+          ProtectHostname = true;
+          ProtectKernelLogs = true;
+          ProtectKernelModules = true;
+          ProtectKernelTunables = true;
+          ProtectSystem = "strict";
+          ReadOnlyPaths = [ "/" ];
+          RemoveIPC = true;
+          RestrictAddressFamilies = [
+            "AF_NETLINK"
+            "AF_INET"
+            "AF_INET6"
+          ];
+          RestrictNamespaces = true;
+          RestrictRealtime = true;
+          RestrictSUIDSGID = true;
+          SystemCallArchitectures = "native";
+          SystemCallFilter = [
+            "@system-service"
+            "~@privileged"
+            "~@resources"
+            "@pkey"
+          ];
+          UMask = "0027";
+        };
+
+        preStart = ''
+          installedConfigFile="${cfg.dataDir}/Config/options.json"
+          install -d -m750 ${cfg.dataDir}/Config
+          rm -f "$installedConfigFile" && install -m640 ${configFile} "$installedConfigFile"
+        '';
+      };
+    })
+    (lib.mkIf (cfg.dataDir != "/var/lib/foundryvtt") {
+      systemd.services.foundryvtt.serviceConfig.ReadWritePaths = [ cfg.dataDir ];
+      systemd.tmpfiles.settings = {
+        "10-foundryvtt"."${cfg.dataDir}".d = {
+          mode = "0750";
+          user = "foundryvtt";
+          group = "foundryvtt";
+        };
+      };
+    })
+  ];
 }
