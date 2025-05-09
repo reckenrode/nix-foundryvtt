@@ -313,6 +313,11 @@
     "npmDepsHash": "sha256-WO1v230rqntAYnm/LhYOlBR3iyIUrOPElBGxEKoQNqw=",
     "releaseType": "stable"
   },
+  "12.343": {
+    "hash": "sha256-C22VfwHKvAkLtsZY7BM5KBC8ktovopN/HLTSYgJ1I4c=",
+    "npmDepsHash": "sha256-IVIZLJ/2C5bM9ACE0ZwmR0sEPQEcHNiUdP6tSxYPG9o=",
+    "releaseType": "stable"
+  },
   "13.332": {
     "hash": "sha256-vWAjS4rQKfoX0eeo1wLzErz2AbghH5vdpKmJOufj25g=",
     "npmDepsHash": "sha256-F8L3Tq5WFZBKplJmiiXITd3eBQPhvlzFCUmc4ktsTco=",
