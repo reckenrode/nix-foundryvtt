@@ -116,12 +116,14 @@ let
       inherit (attrs) resolvedVersion;
       finalAttrs = removeAttrs attrs [ "resolvedVersion" ];
       shortVersion = resolvedVersion.name;
+      platform = resolvedVersion.platform or "Linux";
+      platformIdentifier = lib.optionalString (lib.versionAtLeast shortVersion "13.338") "-${platform}";
     in
     buildNpmPackage {
       inherit (finalAttrs) pname version;
 
       src = requireFile {
-        name = "FoundryVTT-${shortVersion}.zip";
+        name = "FoundryVTT${platformIdentifier}-${shortVersion}.zip";
         inherit (resolvedVersion.value) hash;
         url = "https://foundryvtt.com";
       };
