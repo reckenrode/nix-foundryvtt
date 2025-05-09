@@ -30,10 +30,7 @@
         system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          mkFoundry =
-            attrs:
-              (pkgs.callPackage ./pkgs/foundryvtt {})
-                .overrideAttrs (old: old // attrs);
+          mkFoundry = attrs: (pkgs.callPackage ./pkgs/foundryvtt { }).overrideAttrs (old: old // attrs);
         in
         {
           foundryvtt = mkFoundry { };

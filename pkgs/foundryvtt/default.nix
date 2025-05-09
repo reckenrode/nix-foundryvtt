@@ -169,12 +169,7 @@ let
         # Run PNG images through `oxipng` if it's enabled.
         # could add "-o max" and "--zopfli" to increase compression power
         # --interlace 0 or 1 to dis-/enable interlacing
-        ${
-          if useOxipng then
-            "${oxipng}/bin/oxipng $foundryvtt/public/**/*.png -s"
-          else
-            ""
-        }
+        ${if useOxipng then "${oxipng}/bin/oxipng $foundryvtt/public/**/*.png -s" else ""}
 
         # Precompress assets for use with e.g., Caddy
         for method in gzip zstd brotli; do
