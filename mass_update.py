@@ -12,7 +12,7 @@ from tempfile import TemporaryDirectory
 from packaging.version import Version
 
 
-VERSION_REGEX = re.compile(r"[^-]*-(\d+\.\d+)\.zip")
+VERSION_REGEX = re.compile(r"[^-]*(?:-Linux)?-(\d+\.\d+)\.zip")
 
 executor = ThreadPoolExecutor(max_workers=1)
 
