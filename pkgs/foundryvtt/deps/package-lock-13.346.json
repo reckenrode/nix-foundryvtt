@@ -3492,9 +3492,9 @@
       }
     },
     "node_modules/eslint-linter-browserify": {
-      "version": "9.30.0",
-      "resolved": "https://registry.npmjs.org/eslint-linter-browserify/-/eslint-linter-browserify-9.30.0.tgz",
-      "integrity": "sha512-WkH2kGZwiiUYszSqXMLKsdJraftQ2rPkAb/F9cW06oS/1UzhyJbtLqtt6f2J9smC/b7F1KqqXVq/c/b8vYG8SQ==",
+      "version": "9.30.1",
+      "resolved": "https://registry.npmjs.org/eslint-linter-browserify/-/eslint-linter-browserify-9.30.1.tgz",
+      "integrity": "sha512-kAa6rPKyabTgyaGScFtMw8UGui7a/26F/OVx+5mdONMu/San8y5dgFCeBks5NrzxK9QYu2C8NBtyqwCTkVqeHw==",
       "license": "MIT"
     },
     "node_modules/etag": {
