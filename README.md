@@ -73,19 +73,23 @@ per the instructions when you first build your configuration will add the file t
 of being garbage collected when `nix-collect-garbage` is run. To prevent the file from being garbage collected, create a
 GC root. As long as the created root exists, it will be used as necessary when you rebuild or update your configs.
 
-**Note:** You will need to repeat this procedure for every version of FoundryVTT that you use. 
+The file naming convention should match the name downloaded from the FoundryVTT website. Older releases omit the
+platform name from the file, but newer ones include it. The following examples use the platform name, but you should
+exclude it if you are using an older version. Note that all platforms should be using the Linux download.
+
+**Note:** You will need to repeat this procedure for every version of FoundryVTT that you use.
 
 ```shell
-$ nix-store --add-fixed sha256 FoundryVTT-<version>.zip
-/nix/store/<hash>-FoundryVTT-<version>.zip
+$ nix-store --add-fixed sha256 FoundryVTT-Linux-<version>.zip
+/nix/store/<hash>-FoundryVTT-Linux-<version>.zip
 $ mkdir -p <some path>
-$ nix-store --add-root <some path>/FoundryVTT-<version>.zip -r /nix/store/<hash>-FoundryVTT-<version>.zip
-<some path>/FoundryVTT-<version>.zip
+$ nix-store --add-root <some path>/FoundryVTT-Linux-<version>.zip -r /nix/store/<hash>-FoundryVTT-Linux-<version>.zip
+<some path>/FoundryVTT-Linux-<version>.zip
 $ ls -al <some path>
 total 0
 drwxr-xr-x   3 reckenrode staff   96 Jun 18 18:33 ./
 drwxr-x---+ 75 reckenrode staff 2400 Jun 18 18:33 ../
-lrwxr-xr-x   1 reckenrode staff   65 Jun 18 18:33 FoundryVTT-<version>.zip -> /nix/store/<hash>-FoundryVTT-<version>.zip
+lrwxr-xr-x   1 reckenrode staff   65 Jun 18 18:33 FoundryVTT-Linux-<version>.zip -> /nix/store/<hash>-FoundryVTT-Linux-<version>.zip
 ```
 
 ## Versioning Policy
@@ -115,7 +119,7 @@ The FoundryVTT version can be overriden using `overrideAttrs`.
 1. Download the new Linux version of Foundry from your licensed account at https://foundryvtt.com/.
    Note: FoundryVTT now offers a separate, Node.js download. Use the Linux download.
 
-2. Run `nix build .#foundryvtt.passthru.updateScript && ./result <path to download>/FoundryVTT-<version>.zip <release type>`
+2. Run `nix build .#foundryvtt.passthru.updateScript && ./result <path to download>/FoundryVTT-Linux-<version>.zip <release type>`
    * `<release type>` is one of the above release types.
 
 3. Commit all the changes to a branch, test them, and create a PR for the update.
