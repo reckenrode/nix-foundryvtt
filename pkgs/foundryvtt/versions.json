@@ -393,6 +393,11 @@
     "npmDepsHash": "sha256-GjV2CFbn/Y5brtF8/B+tV2IeodTrQLug4lNijvaZu1s=",
     "releaseType": "stable"
   },
+  "13.348": {
+    "hash": "sha256-1in/quDejUfTrpEU4Tv758SCBgQHcq0TkctICHMGdP8=",
+    "npmDepsHash": "sha256-7D/0chU6b5KN4PdPINBs4hHfrtWIebML/WzgsRWhui8=",
+    "releaseType": "stable"
+  },
   "2.35": {
     "releaseType": "prototype"
   },
