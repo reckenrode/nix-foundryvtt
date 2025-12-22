@@ -90,7 +90,7 @@ in
       dataDir = mkOption {
         type = types.str;
         default = "/var/lib/foundryvtt";
-        description = lib.mdDoc ''
+        description = ''
           The path where Foundry keeps its config, data, and logs.
         '';
       };
