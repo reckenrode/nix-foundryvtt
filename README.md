@@ -4,7 +4,7 @@ This is repo packages FoundryVTT for use with NixOS and Nix. It only includes th
 We use FoundryVTT intermitently, but I’ve subscribed to notifications on foundryvtt/foundryvtt in
 the hope I can do a better job keeping up to date with releases when we’re not actively playing.
 
-The NixOS module targets the latest release of NixOS. That’s 24.05. 
+The NixOS module targets the latest release of NixOS. That’s 25.05. 
 
 ## Using the Module
 
