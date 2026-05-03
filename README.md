@@ -92,6 +92,32 @@ drwxr-x---+ 75 reckenrode staff 2400 Jun 18 18:33 ../
 lrwxr-xr-x   1 reckenrode staff   65 Jun 18 18:33 FoundryVTT-Linux-<version>.zip -> /nix/store/<hash>-FoundryVTT-Linux-<version>.zip
 ```
 
+### Example Caddy Configuration
+
+```nix
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [
+      30000
+    ]; # Foundry runs on 30000 by default
+    allowedTCPPortRanges = [
+      {
+        from = 3000;
+        to = 8000;
+      }
+    ]; # services range
+  };
+  services.caddy = {
+    enable = true;
+    virtualHosts = {
+      "example.xyz".extraConfig = ''
+        reverse_proxy localhost:30000 
+      '';
+      # instead of localhost you can input an ip if you're using an external server for reverse proxying
+    };
+  };
+```
+
 ## Versioning Policy
 
 nix-foundryvtt has version information for all available releases of Foundry VTT. It provides packages for the latest
