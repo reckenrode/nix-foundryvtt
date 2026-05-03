@@ -5,7 +5,7 @@
     the browser.
   '';
 
-  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
 
   outputs =
     { self, nixpkgs, ... }:
@@ -58,7 +58,7 @@
             majorVersion = "14";
             releaseType = "stable";
           };
-          foundryvtt_latest = self.packages.${system}.foundryvtt_12;
+          foundryvtt_latest = self.packages.${system}.foundryvtt_14;
           default = self.packages.${system}.foundryvtt;
         }
       );
