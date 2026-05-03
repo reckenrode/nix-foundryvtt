@@ -11,12 +11,14 @@
   oxipng,
   stdenv,
   writeScript,
-  nodejs,
+  nodejs_24,
   useOxipng ? true,
 }:
 
 let
   foundry-version-hashes = lib.importJSON ./versions.json;
+
+  nodejs = nodejs_24;
 
   resolveVersion =
     attrs:
@@ -121,6 +123,7 @@ let
     in
     buildNpmPackage {
       inherit (finalAttrs) pname version;
+      inherit nodejs;
 
       src = requireFile {
         name = "FoundryVTT${platformIdentifier}-${shortVersion}.zip";
@@ -301,7 +304,7 @@ stdenv.mkDerivation (
 
     passthru.updateScript = writeScript "update-foundryvtt" ''
       #!/usr/bin/env nix-shell
-      #!nix-shell -i bash -p coreutils gnused jq moreutils nodejs prefetch-npm-deps unzip
+      #!nix-shell -i bash -p coreutils gnused jq moreutils nodejs_24 prefetch-npm-deps unzip
       set -eu -o pipefail
 
       src=''${src:-$1}
